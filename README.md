@@ -1,70 +1,163 @@
-# Getting Started with Create React App
+# 🏡 Property Search Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Advanced Client-Side Web Development – Coursework**
 
-## Available Scripts
+## 📘 Module
 
-In the project directory, you can run:
+**5COSC026W – Advanced Client-Side Web Development**
 
-### `npm start`
+## 🎓 Coursework Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project is a **React-based Single Page Application (SPA)** developed as part of the coursework for the *Advanced Client-Side Web Development* module.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The aim of the coursework is to demonstrate practical knowledge of **modern client-side web development techniques**, including React components, routing, state management, JSON data handling, user interaction, and responsive design — **without using a backend server**.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🎯 Project Background
 
-### `npm run build`
+The application simulates a **property search platform** similar to those used by estate agents.
+Users can search through a predefined set of property listings using multiple criteria and interact with results dynamically.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+All property data is stored locally in **JSON format**, reflecting the module requirement to build a **pure client-side solution**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The project focuses on:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* User-friendly interaction
+* Dynamic filtering
+* State-driven UI updates
+* Clean component architecture
+* Modern React best practices
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🛠️ Technologies Used
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* **React (Create React App)**
+* **React Router DOM**
+* **JavaScript (ES6+)**
+* **HTML5**
+* **CSS3**
+* **Local JSON data**
+* **Browser Local Storage**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ✨ Key Features
 
-## Learn More
+### 🔍 Property Search
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Users can filter properties by:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Property type
+* Minimum and maximum price
+* Minimum and maximum number of bedrooms
+* Date added (from / to)
+* Postcode area
 
-### Code Splitting
+Multiple criteria can be combined simultaneously.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 🖼️ Property Listings
 
-### Analyzing the Bundle Size
+* Results are displayed dynamically as property cards
+* Each card shows:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  * Main property image
+  * Price
+  * Short description
+* Clicking a property navigates to a **dedicated property details page**
 
-### Making a Progressive Web App
+### 📄 Property Details Page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Displays full property information
+* Includes:
 
-### Advanced Configuration
+  * Image gallery with thumbnails
+  * Detailed description
+  * Navigation back to search results
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### ❤️ Favourites Functionality
 
-### Deployment
+* Properties can be added to favourites
+* Supports:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  * Button-based addition
+  * **Drag-and-drop** interaction
+* Favourites persist using **localStorage**
+* Users can remove individual favourites or clear all
 
-### `npm run build` fails to minify
+### 📱 Responsive Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Layout adapts to desktop and tablet screen sizes
+* Uses CSS media queries and flexible layouts
+
+---
+
+## 🔐 Security Considerations
+
+* No user-generated HTML is rendered directly
+* React JSX automatically escapes content
+* Content Security Policy (CSP) can be applied via `index.html`
+
+---
+
+## 🚀 How to Run the Project
+
+1. Clone or download the repository
+2. Open the project folder in VS Code
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+4. Start the development server:
+
+   ```bash
+   npm start
+   ```
+5. Open in browser:
+
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## 📂 Project Structure (Simplified)
+
+```
+src/
+├── components/
+│   ├── SearchForm.jsx
+│   ├── ResultsList.jsx
+│   ├── PropertyCard.jsx
+│   ├── FavouritesPanel.jsx
+│   └── ...
+├── pages/
+│   ├── SearchPage.jsx
+│   └── PropertyDetails.jsx
+├── data/
+│   └── properties.json
+├── utils/
+│   ├── filterProperties.js
+│   └── favouritesStorage.js
+├── App.js
+└── index.js
+```
+
+---
+
+## 🧪 Testing & Development Notes
+
+* Application state is fully managed using React hooks
+* Filtering logic is separated into utility functions
+* Components are modular and reusable
+* Version control is managed using GitHub with incremental commits
+
+---
+
+## 📌 Coursework Declaration
+
+This project was developed **solely for academic purposes** as part of the *Advanced Client-Side Web Development* coursework submission.
+No third-party backend services or APIs were used.
+
