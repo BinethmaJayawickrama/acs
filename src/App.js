@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import PropertyDetails from "./pages/PropertyDetails";
-import "./App.css";
+import "./styles/App.css";
 
 export default function App() {
   return (

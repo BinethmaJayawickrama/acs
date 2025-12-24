@@ -35,13 +35,13 @@ export default function SearchPage() {
     });
   }
 
-  function removeFavourite(id) {
-    setFavIds((prev) => {
-      const next = prev.filter((x) => x !== id);
-      saveFavourites(next);
-      return next;
-    });
-  }
+function removeFavourite(id) {
+  setFavIds((prev) => {
+    const next = prev.filter((x) => String(x) !== String(id));
+    saveFavourites(next);
+    return next;
+  });
+}
 
   function clearFavourites() {
     const next = [];
@@ -69,6 +69,7 @@ export default function SearchPage() {
         favIds={favIds}
         onRemoveFavourite={removeFavourite}
         onClear={clearFavourites}
+        onDropFavourite={addFavourite}  //favourites
       />
     </div>
   );

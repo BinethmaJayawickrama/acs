@@ -5,7 +5,7 @@ import PropertyTabs from "../components/PropertyTabs";
 
 export default function PropertyDetails() {
   const { id } = useParams();
-  const property = propertiesData.find((p) => p.id === id);
+  const property = propertiesData.find((p) => String(p.id) === String(id));
 
   if (!property) {
     return (
