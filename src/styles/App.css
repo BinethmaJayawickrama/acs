@@ -257,3 +257,17 @@ input:focus, select:focus {
   border: 0;
   border-radius: 12px;
 }
+
+/* App layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f9fc;
+  color: #111827;
+}
+
+.app__main {
+  flex: 1;
+  padding: 18px;
+}

@@ -1,0 +1,132 @@
+/* ===== NAVBAR (matches screenshot: dark bar, big title, centered long search, right icon) ===== */
+
+.sitebar {
+  width: 100%;
+  height: 70px;
+  background: #2f2f2f;
+  border-bottom: 1px solid #1f1f1f;
+  display: flex;
+  align-items: center;
+}
+
+.sitebar__inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* LEFT: Brand */
+.sitebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+}
+
+.sitebar__brandIcon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.sitebar__brandTitle {
+  font-size: 44px;
+  font-weight: 200;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* MIDDLE: Search box */
+.sitebar__search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #3a3a3a;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sitebar__searchIcon {
+  padding: 0 12px;
+  font-size: 18px;
+  color: #666;
+  user-select: none;
+}
+
+.sitebar__input {
+  flex: 1;
+  height: 44px !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 10px !important;
+  font-size: 16px !important;
+  color: #111 !important;
+  background: transparent !important;
+  width: auto !important;
+}
+
+.sitebar__btn {
+  height: 44px;
+  padding: 0 18px;
+  border: none;
+  background: #1f1f1f;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.sitebar__btn:hover {
+  background: #000000;
+}
+
+/* RIGHT: Heart icon */
+.sitebar__actions {
+  width: 80px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sitebar__heart {
+  width: 50px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  background: #1f1f1f;
+  border: 1px solid #3a3a3a;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 22px;
+  border-radius: 2px;
+}
+
+.sitebar__heart:hover {
+  background: #000;
+}
+
+/* ===== FOOTER (same dark bar) ===== */
+.sitefooter {
+  width: 100%;
+  background: #2f2f2f;
+  border-top: 1px solid #1f1f1f;
+  color: #fff;
+}
+
+.sitefooter__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.sitefooter__muted {
+  opacity: 0.8;
+  margin-top: 6px;
+}

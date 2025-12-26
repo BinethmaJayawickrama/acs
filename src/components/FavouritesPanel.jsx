@@ -22,7 +22,7 @@ export default function FavouritesPanel({
   }
 
   return (
-    <aside
+    <aside id="favourites"
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       style={{
