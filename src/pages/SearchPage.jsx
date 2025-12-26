@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import propertiesData from "../data/properties.json";
 
 import { filterProperties } from "../utils/filterProperties";
@@ -21,6 +22,18 @@ export default function SearchPage() {
   });
 
   const [favIds, setFavIds] = useState(() => loadFavourites());
+
+  const location = useLocation();
+
+useEffect(() => {
+  if (location.state?.quickPostcode) {
+    setCriteria((prev) => ({
+      ...prev,
+      postcodeArea: "location.state.quickPostcode",
+    }));
+  }
+}, [location.state]);
+
 
   const results = useMemo(() => {
     return filterProperties(propertiesData, criteria);
