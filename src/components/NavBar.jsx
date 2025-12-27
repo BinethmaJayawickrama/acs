@@ -1,99 +1,52 @@
-import { useEffect, useState } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
-import "./sitebar.css";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
-import propertiesData from "../data/properties.json";
-import { loadFavourites } from "../utils/favouritesStorage";
-
-export default function NavBar() {
+export default function Navbar({ favCount = 0 }) {
+  const [postcode, setPostcode] = useState("");
   const navigate = useNavigate();
-  const [postcodeQuick, setPostcodeQuick] = useState("");
-  const [openFavs, setOpenFavs] = useState(false);
-  const [favIds, setFavIds] = useState([]);
 
-  useEffect(() => {
-    setFavIds(loadFavourites());
-  }, []);
-
-  const favProperties = favIds
-    .map((id) => propertiesData.find((p) => String(p.id) === String(id)))
-    .filter(Boolean);
-
-  function handleQuickSearch(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    navigate("/search", { state: { quickPostcode: postcodeQuick } });
+
+    // Go to Search page and pass postcode into route state
+    navigate("/search", {
+      state: { postcodeArea: postcode.trim() }
+    });
   }
 
   return (
     <header className="sitebar">
       <div className="sitebar__inner">
-        {/* Left brand */}
-        <div className="sitebar__brand">
-          <span className="sitebar__brandIcon">🏠</span>
-          <h1 className="sitebar__brandTitle">RentReady</h1>
-        </div>
+        {/* LEFT */}
+        <Link to="/" className="sitebar__brand">
+          RentReady
+        </Link>
 
-        {/* Middle search */}
-        <form className="sitebar__search" onSubmit={handleQuickSearch}>
-          <span className="sitebar__searchIcon">🔍</span>
+        {/* CENTER */}
+        <form className="sitebar__search" onSubmit={onSubmit}>
+
           <input
             className="sitebar__input"
-            value={postcodeQuick}
-            onChange={(e) => setPostcodeQuick(e.target.value)}
+            type="text"
             placeholder="Postcode area (e.g., BR1)"
+            value={postcode}
+            onChange={(e) => setPostcode(e.target.value)}
           />
+
           <button className="sitebar__btn" type="submit">
             Search
           </button>
         </form>
 
-        {/* Right nav + favourites dropdown */}
-        <nav className="sitebar__nav">
-          <NavLink className="sitebar__navLink" to="/">
-            Home
+        {/* RIGHT */}
+        <nav className="sitebar__links">
+          <NavLink className="sitebar__link" to="/contact">
+            Contact us
           </NavLink>
 
-          <NavLink className="sitebar__navLink" to="/search">
-            Search
+          <NavLink className="sitebar__link" to="/favourites">
+            Favourites {favCount > 0 ? `(${favCount})` : ""}
           </NavLink>
-
-          <NavLink className="sitebar__navLink" to="/contact">
-            Contact Us
-          </NavLink>
-
-          <div
-            className="sitebar__favWrap"
-            onMouseEnter={() => setOpenFavs(true)}
-            onMouseLeave={() => setOpenFavs(false)}
-          >
-            <button className="sitebar__favBtn" type="button" aria-haspopup="true">
-              ♥ Favourites ({favProperties.length})
-            </button>
-
-            {openFavs && (
-              <div className="sitebar__dropdown">
-                <div className="sitebar__dropdownTitle">Your favourites</div>
-
-                {favProperties.length === 0 ? (
-                  <div className="sitebar__dropdownEmpty">No favourites yet.</div>
-                ) : (
-                  <ul className="sitebar__dropdownList">
-                    {favProperties.slice(0, 5).map((p) => (
-                      <li key={p.id} className="sitebar__dropdownItem">
-                        <Link to={`/property/${p.id}`} className="sitebar__dropdownLink">
-                          {p.type} • £{Number(p.price).toLocaleString()} • {p.bedrooms} beds
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <Link to="/search" className="sitebar__dropdownGo">
-                  Go to Search (full list)
-                </Link>
-              </div>
-            )}
-          </div>
         </nav>
       </div>
     </header>
