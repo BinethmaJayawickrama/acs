@@ -1,18 +1,14 @@
 import PropertyCard from "./PropertyCard";
 
-export default function ResultsList({ properties = [], favIds = [], onAddFavourite }) {
-  if (!Array.isArray(properties) || properties.length === 0) {
-    return <p>No results found.</p>;
-  }
-
+export default function ResultsList({ properties, favIds, onAddFavourite }) {
   return (
-    <div className="results">
+    <div className="propertyGrid">
       {properties.map((p) => (
         <PropertyCard
-          key={p?.id ?? Math.random()}
-          property={p}  // ✅ make sure we pass "property"
-          isFavourite={p?.id ? favIds.includes(p.id) : false}
-          onAddFavourite={() => p?.id && onAddFavourite(p.id)}
+          key={p.id}
+          property={p}
+          isFavourite={favIds.includes(p.id)}
+          onAddFavourite={() => onAddFavourite(p.id)}
         />
       ))}
     </div>

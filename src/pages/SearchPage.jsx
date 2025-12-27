@@ -1,5 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useMemo, useState } from "react";
 import propertiesData from "../data/properties.json";
 
 import { filterProperties } from "../utils/filterProperties";
@@ -21,23 +20,12 @@ export default function SearchPage() {
     postcodeArea: "",
   });
 
-  const [favIds, setFavIds] = useState(() => loadFavourites());
+  const [favIds, setFavIds] = useState(loadFavourites());
 
-  const location = useLocation();
-
-useEffect(() => {
-  if (location.state?.quickPostcode) {
-    setCriteria((prev) => ({
-      ...prev,
-      postcodeArea: "location.state.quickPostcode",
-    }));
-  }
-}, [location.state]);
-
-
-  const results = useMemo(() => {
-    return filterProperties(propertiesData, criteria);
-  }, [criteria]);
+  const results = useMemo(
+    () => filterProperties(propertiesData, criteria),
+    [criteria]
+  );
 
   function addFavourite(id) {
     setFavIds((prev) => {
@@ -48,42 +36,55 @@ useEffect(() => {
     });
   }
 
-function removeFavourite(id) {
-  setFavIds((prev) => {
-    const next = prev.filter((x) => String(x) !== String(id));
-    saveFavourites(next);
-    return next;
-  });
-}
+  function removeFavourite(id) {
+    setFavIds((prev) => {
+      const next = prev.filter((x) => x !== id);
+      saveFavourites(next);
+      return next;
+    });
+  }
 
   function clearFavourites() {
-    const next = [];
-    saveFavourites(next);
-    setFavIds(next);
+    saveFavourites([]);
+    setFavIds([]);
   }
 
   return (
-    <div className="page" style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 20 }}>
-      <div className="main">
-        <h1>Property Search</h1>
+    <div className="searchPage">
+      {/* FILTER SECTION (CENTERED like Rightmove) */}
+      <section className="filterSection">
+        <div className="filterCard">
+          <h1 className="filterTitle">Find property</h1>
+          <SearchForm criteria={criteria} onChange={setCriteria} />
+        </div>
+      </section>
 
-        {/* IMPORTANT: SearchForm must accept criteria + onChange */}
-        <SearchForm criteria={criteria} onChange={setCriteria} />
+      {/* RESULTS + FAVOURITES SIDE BY SIDE */}
+      <section className="resultsSection">
+        <div className="resultsGridLayout">
+          {/* LEFT: property cards */}
+          <div className="resultsCol">
+            <h2 className="resultsHeading">Results ({results.length})</h2>
 
-        <h2>Results ({results.length})</h2>
+            <ResultsList
+              properties={results}
+              favIds={favIds}
+              onAddFavourite={addFavourite}
+            />
+          </div>
 
-        {/* IMPORTANT: ResultsList must accept these props */}
-        <ResultsList properties={results} favIds={favIds} onAddFavourite={addFavourite} />
-      </div>
-
-      {/* IMPORTANT: FavouritesPanel must accept these props */}
-      <FavouritesPanel
-        properties={propertiesData}
-        favIds={favIds}
-        onRemoveFavourite={removeFavourite}
-        onClear={clearFavourites}
-        onDropFavourite={addFavourite}  //favourites
-      />
+          {/* RIGHT: favourites panel */}
+          <aside className="favsCol">
+            <FavouritesPanel
+              properties={propertiesData}
+              favIds={favIds}
+              onRemoveFavourite={removeFavourite}
+              onClear={clearFavourites}
+              onDropFavourite={addFavourite}
+            />
+          </aside>
+        </div>
+      </section>
     </div>
   );
 }

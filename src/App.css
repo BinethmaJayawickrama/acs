@@ -1,0 +1,581 @@
+/* ---------- Base / reset-ish ---------- */
+* { box-sizing: border-box; }
+
+:root{
+  --bg: #0f0f10;
+  --panel: #17181b;
+  --border: #2b2d33;
+  --text: #e9e9ee;
+  --muted: #b6b7bf;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 16px;
+  padding: 20px;
+  align-items: start;
+}
+
+.main {
+  min-width: 0; /* prevents overflow */
+}
+
+/* Responsive: smaller than iPad landscape */
+@media (max-width: 1024px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Cards / panels ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.results {
+  display: grid;
+  gap: 12px;
+}
+
+/* ---------- Typography helpers ---------- */
+h1, h2, h3 {
+  margin: 0 0 10px;
+}
+
+.muted {
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* ---------- Buttons ---------- */
+button {
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #22242a;
+  color: var(--text);
+  padding: 8px 10px;
+}
+
+button:hover {
+  background: #2a2d36;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- Forms (works with plain HTML inputs) ---------- */
+label {
+  display: block;
+  margin: 10px 0 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+input, select {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #111214;
+  color: var(--text);
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: #4a4f5d;
+}
+
+.formGrid {
+  display: grid;
+  gap: 10px;
+}
+
+/* ---------- Property card (result item) ---------- */
+.thumb {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.rowWrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Favourites panel ---------- */
+.favs {
+  position: sticky;
+  top: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.favItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.favItem:last-child {
+  border-bottom: none;
+}
+
+.clearBtn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ---------- Gallery (BIG image + thumbnails) ---------- */
+.gallery {
+  margin: 16px 0;
+}
+
+.mainImg {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+/* Thumbnail strip */
+.thumbRow {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+/* makes horizontal scroll feel nicer */
+.thumbRow::-webkit-scrollbar {
+  height: 8px;
+}
+.thumbRow::-webkit-scrollbar-thumb {
+  background: #2b2d33;
+  border-radius: 999px;
+}
+.thumbRow::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.thumbSmall {
+  width: 96px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  flex: 0 0 auto; /* important for scroll row */
+  opacity: 0.9;
+}
+
+.thumbSmall:hover {
+  opacity: 1;
+  border-color: #3b3f4b;
+}
+
+.thumbSmall.active {
+  border-color: #ffffff;
+  opacity: 1;
+}
+
+/* ---------- Tabs ---------- */
+.tabRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.tabRow button {
+  padding: 8px 12px;
+}
+
+.tabActive {
+  border-color: #ffffff;
+}
+
+/* Optional: map iframe spacing */
+.mapFrame {
+  width: 100%;
+  height: 350px;
+  border: 0;
+  border-radius: 12px;
+}
+
+/* App layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f9fc;
+  color: #111827;
+}
+
+.app__main {
+  flex: 1;
+  padding: 18px;
+}
+
+
+/* ===== SearchPage layout (matches your sketch) ===== */
+
+.searchPage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+/* Filter section under navbar */
+.searchPage__filters {
+  margin-bottom: 16px;
+}
+
+.searchPage__title {
+  margin: 0 0 8px;
+}
+
+.searchPage__h2 {
+  margin: 0 0 12px;
+}
+
+/* Two columns: LEFT results | RIGHT favourites */
+.searchPage__body {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 18px;
+  align-items: start;
+}
+
+/* Keep favourites visible while scrolling */
+.searchPage__favourites {
+  position: sticky;
+  top: 90px; /* adjust if your navbar height differs */
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 900px) {
+  .searchPage__body {
+    grid-template-columns: 1fr;
+  }
+  .searchPage__favourites {
+    position: static;
+  }
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 1100px) {
+  .resultsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 650px) {
+  .resultsGrid { grid-template-columns: 1fr; }
+}
+
+/* ===== Favourites sidebar (clean boxed panel) ===== */
+.favPanel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.favPanel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.favPanel__title {
+  margin: 0 0 10px;
+}
+
+.favPanel__drop {
+  border: 2px dashed #5b5f6d;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.favPanel__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.favPanel__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+
+.favPanel__item:first-child {
+  border-top: none;
+}
+
+.favPanel__link {
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.favPanel__link:hover {
+  text-decoration: underline;
+}
+
+.favPanel__removeBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.favPanel__clear {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.favPanel__removeZone {
+  margin-top: 12px;
+  border: 2px dashed #b91c1c;
+  color: #ffb4b4;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  background: rgba(185, 28, 28, 0.08);
+}
+
+/* ===== App shell (navbar top, footer bottom) ===== */
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.appMain {
+  flex: 1;
+}
+
+/* ===== Search page layout ===== */
+.searchPage {
+  background: #ffffff;
+  color: #111;
+}
+
+/* Filter section centered like Rightmove */
+.filterSection {
+  padding: 28px 16px;
+  display: flex;
+  justify-content: center;
+}
+.filterCard {
+  width: 100%;
+  max-width: 1200px;
+  background: #f3f4f6;
+  border-radius: 22px;
+  padding: 26px;
+  border: 1px solid #e5e7eb;
+}
+.filterTitle {
+  font-size: 34px;
+  margin: 0 0 18px;
+  font-weight: 900;
+}
+
+/* Rightmove-like form grid */
+.rmForm label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #111;
+}
+.rmGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px 22px;
+}
+.rmField input,
+.rmField select {
+  width: 100%;
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+  padding: 0 14px;
+  font-size: 16px;
+  background: #fff;
+}
+.rmDouble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.rmButtonWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.rmGhostLabel {
+  opacity: 0;
+  height: 26px;
+}
+.rmButton {
+  height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: #10b981;
+  color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+  cursor: pointer;
+}
+.rmButton:hover {
+  filter: brightness(0.95);
+}
+
+/* Results + favourites side-by-side */
+.resultsSection {
+  padding: 10px 16px 30px;
+  display: flex;
+  justify-content: center;
+}
+.resultsGridLayout {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 330px; /* left: cards, right: favourites */
+  gap: 18px;
+  align-items: start;
+}
+.resultsHeading {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+/* Cards grid */
+.propertyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Favourites sidebar stays beside grid */
+.favSidebar {
+  position: sticky;
+  top: 90px; /* below navbar */
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 14px;
+  background: #ffffff;
+}
+.favSidebar__title {
+  margin: 0 0 6px;
+  font-weight: 900;
+}
+.favSidebar__hint {
+  margin: 0 0 12px;
+  color: #475569;
+}
+.favSidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.favSidebar__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #e5e7eb;
+}
+.favSidebar__item:first-child {
+  border-top: none;
+}
+.favSidebar__link {
+  text-decoration: none;
+  font-weight: 700;
+  color: #111;
+}
+.favSidebar__link:hover {
+  text-decoration: underline;
+}
+.favSidebar__clear {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* Responsive: favourites goes under only on small screens */
+@media (max-width: 1000px) {
+  .rmGrid {
+    grid-template-columns: 1fr;
+  }
+  .resultsGridLayout {
+    grid-template-columns: 1fr;
+  }
+  .favSidebar {
+    position: static;
+  }
+}
+

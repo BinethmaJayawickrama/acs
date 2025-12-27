@@ -1,83 +1,48 @@
-import PropertyCardMini from "./PropertyCardMini";
+import { Link } from "react-router-dom";
 
 export default function FavouritesPanel({
-  properties = [],
-  favIds = [],
+  properties,
+  favIds,
   onRemoveFavourite,
   onClear,
   onDropFavourite,
 }) {
-  const favourites = favIds
-    .map((id) => properties.find((p) => String(p.id) === String(id)))
-    .filter(Boolean);
+  const favProps = (properties || []).filter((p) => favIds.includes(p.id));
 
-  function handleDragOver(e) {
+  function allowDrop(e) {
     e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
   }
 
-  function handleDrop(e) {
+  function handleDropAdd(e) {
     e.preventDefault();
-    const id = e.dataTransfer.getData("text/plain");
-    if (id) onDropFavourite(id);
+    const id = Number(e.dataTransfer.getData("text/plain"));
+    if (!Number.isNaN(id)) onDropFavourite?.(id);
   }
 
   return (
-    <aside id="favourites"
-      onDragOver={handleDragOver}
-      onDrop={handleDrop}
-      style={{
-        border: "2px dashed #888",
-        padding: 12,
-        minWidth: 280,
-        height: "fit-content",
-      }}
-    >
-      <h2>Favourites ({favourites.length})</h2>
-      <p style={{ opacity: 0.8 }}>Drag a property card here to add it.</p>
+    <div className="favSidebar" onDragOver={allowDrop} onDrop={handleDropAdd}>
+      <h3 className="favSidebar__title">Favourites ({favIds.length})</h3>
+      <p className="favSidebar__hint">Drag a card here to add it.</p>
 
-      {favourites.length === 0 ? (
-        <p>No favourites yet.</p>
+      {favProps.length === 0 ? (
+        <p className="muted">No favourites yet.</p>
       ) : (
-        <>
-          <button onClick={onClear} style={{ marginBottom: 10 }}>
-            Clear all
-          </button>
-
-          <div style={{ display: "grid", gap: 10 }}>
-            {favourites.map((p) => (
-              <PropertyCardMini
-                key={p.id}
-                property={p}
-                onRemove={() => onRemoveFavourite(p.id)}
-              />
-            ))}
-          </div>
-        </>
+        <ul className="favSidebar__list">
+          {favProps.map((p) => (
+            <li key={p.id} className="favSidebar__item">
+              <Link to={`/property/${p.id}`} className="favSidebar__link">
+                £{Number(p.price).toLocaleString()} — {p.type}
+              </Link>
+              <button onClick={() => onRemoveFavourite(p.id)}>Remove</button>
+            </li>
+          ))}
+        </ul>
       )}
 
-      {/* REMOVE ZONE */}
-      <div
-        onDragOver={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-        onDrop={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const id = e.dataTransfer.getData("text/plain");
-          if (id) onRemoveFavourite(id);
-        }}
-        style={{
-          marginTop: 14,
-          padding: 12,
-          border: "2px dashed red",
-          borderRadius: 6,
-          textAlign: "center",
-          color: "red",
-        }}
-      >
-        🗑️ Remove Zone (drag a favourite here to remove)
-      </div>
-    </aside>
+      <button className="favSidebar__clear" onClick={onClear}>
+        Clear all
+      </button>
+    </div>
   );
 }
