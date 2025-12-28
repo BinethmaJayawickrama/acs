@@ -1,59 +1,48 @@
-/* ===== NAVBAR (LIGHT like your picture) ===== */
+/* ===== NAVBAR (light blue, bigger than page text) ===== */
 
 .sitebar {
   width: 100%;
-  height: 100px;
-  background:pink;
-  border-bottom: 1px solid #e5e7eb;
+  height: 96px;
+  background: #AFCBD5;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
 }
 
 .sitebar__inner {
   width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0 18px;
-
-  /* layout: left title | centered search | right links */
+  padding: 0 22px;
   display: grid;
   grid-template-columns: auto minmax(360px, 1fr) auto;
   align-items: center;
-  gap: 18px;
+  gap: 22px;
 }
 
-/* LEFT: Brand */
+/* LEFT: brand (left corner) */
 .sitebar__brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
   justify-self: start;
-  font-size: 50px;
-  font-family: 'Courier New', Courier, monospace;
-  align-items: center;
-}
-
-.sitebar__brandTitle {
-  font-size: 10px;
-  font-weight: 800;
-  color: #271112;
-  margin: 0;
-  letter-spacing: 0.2px;
   text-decoration: none;
 }
 
-/* MIDDLE: Search box (long rounded) */
+.sitebar__brandTitle {
+  font-size: 42px;           /* bigger */
+  font-weight: 800;
+  color: #272838;            /* dark navy */
+  letter-spacing: 0.2px;
+}
+
+/* MIDDLE: search */
 .sitebar__search {
   justify-self: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 620px;
+  height: 46px;
 
   display: flex;
   align-items: center;
-  height: 40px;
 
   background: #ffffff;
-  border: 1px solid #d1d5db;
+  border: 1px solid rgba(0,0,0,0.18);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -67,104 +56,97 @@
 
 .sitebar__input {
   flex: 1;
-  height: 40px !important;
-  border: none !important;
-  outline: none !important;
-  padding: 0 10px !important;
-  font-size: 14px !important;
-  color: #111827 !important;
-  background: transparent !important;
+  height: 46px;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 16px;
+  color: #111827;
+  background: transparent;
 }
 
 .sitebar__btn {
-  height: 40px;
-  padding: 0 16px;
+  height: 46px;
+  padding: 0 18px;
   border: none;
-  background: #111827;
+  background: #272838; /* dark navy */
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .sitebar__btn:hover {
-  background: #000000;
+  filter: brightness(0.95);
 }
 
-/* RIGHT: links (Contact us + Favourites) */
+/* RIGHT: Contact + Heart (gap between them) */
 .sitebar__actions {
+  justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 22px;
-  justify-self: end;
+  gap: 26px; /* <-- gap between Contact Us and heart */
 }
 
 .sitebar__navLink {
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 14px;
-  color: #111827;
+  text-decoration: none;     /* remove underline */
+  font-weight: 800;
+  font-size: 18px;
+  color: #272838;
 }
 
 .sitebar__navLink:hover {
-  text-decoration: underline;
+  text-decoration: none;     /* keep no underline on hover too */
+  opacity: 0.9;
 }
 
-/* Optional: favourites icon inline */
-.sitebar__navLink .heart {
-  margin-right: 8px;
-  color: #111827;
-}
-
-/* Dropdown wrapper (if you use hover dropdown for favourites) */
-.sitebar__favWrap {
+/* HEART ICON ONLY */
+.sitebar__favIcon {
   position: relative;
-}
-
-.sitebar__dropdown {
-  position: absolute;
-  right: 0;
-  top: 46px;
-  width: 320px;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  text-decoration: none;
+  color: #272838;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  padding: 12px;
-  z-index: 999;
+}
+.sitebar__favIcon svg {
+  width: 30px;
+  height: 30px;
 }
 
-/* ===== FOOTER (same light style as navbar) ===== */
-
-.sitefooter {
-  width: 100%;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
-  color: #111827;
+.sitebar__favIcon:hover {
+  background: rgba(39, 40, 56, 0.08);
 }
 
-.sitefooter__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 14px 18px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.sitefooter__muted {
-  opacity: 0.75;
-  margin-top: 6px;
+/* badge count */
+.sitebar__badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #815355; /* maroon from your palette */
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
 }
 
 /* Responsive */
 @media (max-width: 900px) {
   .sitebar {
     height: auto;
-    padding: 10px 0;
+    padding: 12px 0;
   }
 
   .sitebar__inner {
     grid-template-columns: 1fr;
-    gap: 10px;
   }
 
   .sitebar__search {
@@ -173,6 +155,5 @@
 
   .sitebar__actions {
     justify-self: start;
-    gap: 14px;
   }
 }

@@ -1,36 +1,50 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import "./sitebar.css";
 
-export default function Navbar({ favCount = 0 }) {
-  const [postcode, setPostcode] = useState("");
-  const navigate = useNavigate();
+function HeartOutlineIcon({ size = 28 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M20.84 4.61c-1.54-1.34-3.78-1.34-5.32 0L12 7.28 8.48 4.61c-1.54-1.34-3.78-1.34-5.32 0-1.82 1.59-1.95 4.35-.29 6.1L12 21l9.13-10.29c1.66-1.75 1.53-4.51-.29-6.1z"
+        stroke="currentColor"
+        strokeWidth="1.9"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
-  function onSubmit(e) {
-    e.preventDefault();
 
-    // Go to Search page and pass postcode into route state
-    navigate("/search", {
-      state: { postcodeArea: postcode.trim() }
-    });
-  }
-
+export default function NavBar({ favCount = 0, searchValue = "", onSearchChange, onSearchSubmit }) {
   return (
     <header className="sitebar">
       <div className="sitebar__inner">
-        {/* LEFT */}
-        <Link to="/" className="sitebar__brand">
-          RentReady
+        {/* LEFT: Brand */}
+        <Link to="/" className="sitebar__brand" aria-label="Go to home">
+          <span className="sitebar__brandTitle">RentReady</span>
         </Link>
 
-        {/* CENTER */}
-        <form className="sitebar__search" onSubmit={onSubmit}>
+        {/* MIDDLE: Search */}
+        <form
+          className="sitebar__search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSearchSubmit?.();
+          }}
+        >
+          <span className="sitebar__searchIcon" aria-hidden="true"></span>
 
           <input
             className="sitebar__input"
-            type="text"
+            value={searchValue}
+            onChange={(e) => onSearchChange?.(e.target.value)}
             placeholder="Postcode area (e.g., BR1)"
-            value={postcode}
-            onChange={(e) => setPostcode(e.target.value)}
           />
 
           <button className="sitebar__btn" type="submit">
@@ -38,16 +52,15 @@ export default function Navbar({ favCount = 0 }) {
           </button>
         </form>
 
-        {/* RIGHT */}
-        <nav className="sitebar__links">
-          <NavLink className="sitebar__link" to="/contact">
-            Contact us
-          </NavLink>
+        {/* RIGHT: Links */}
+        <div className="sitebar__actions">
+          <Link className="sitebar__navLink" to="/contact">
+            Contact Us
+          </Link>
 
-          <NavLink className="sitebar__link" to="/favourites">
-            Favourites {favCount > 0 ? `(${favCount})` : ""}
-          </NavLink>
-        </nav>
+          {/* ONLY ICON (no word) */}
+          <Link to="/search#favourites" className="sitebar__favIcon" aria-label="Favourites"> <HeartOutlineIcon /> </Link>
+        </div>
       </div>
     </header>
   );

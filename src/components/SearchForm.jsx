@@ -1,109 +1,76 @@
 export default function SearchForm({ criteria, onChange }) {
-  function setField(name, value) {
-    onChange((prev) => ({ ...prev, [name]: value }));
-  }
+  const update = (field) => (e) => {
+    const value = e.target.value;
+    onChange((prev) => ({ ...prev, [field]: value }));
+  };
 
   return (
-    <form className="rmForm" onSubmit={(e) => e.preventDefault()}>
+    <div className="rmForm">
       <div className="rmGrid">
-        {/* Row 1 */}
         <div className="rmField">
-          <label>Property types</label>
-          <select
-            value={criteria.type}
-            onChange={(e) => setField("type", e.target.value)}
-          >
+          <label>Property type</label>
+          <select value={criteria.type} onChange={update("type")}>
             <option value="any">Any</option>
-            <option value="House">House</option>
-            <option value="Flat">Flat</option>
-          </select>
-        </div>
-
-        <div className="rmField">
-          <label>Added to site</label>
-          <select
-            value={criteria.dateFrom ? "custom" : "anytime"}
-            onChange={(e) => {
-              const v = e.target.value;
-              if (v === "anytime") {
-                setField("dateFrom", "");
-                setField("dateTo", "");
-              }
-            }}
-          >
-            <option value="anytime">Anytime</option>
-            <option value="custom">Custom (use dates below)</option>
+            <option value="house">House</option>
+            <option value="flat">Flat</option>
           </select>
         </div>
 
         <div className="rmField">
           <label>Postcode area</label>
           <input
-            placeholder="e.g. BR1"
             value={criteria.postcodeArea}
-            onChange={(e) => setField("postcodeArea", e.target.value)}
+            onChange={update("postcodeArea")}
+            placeholder="e.g. BR1"
           />
         </div>
 
-        {/* Row 2 */}
         <div className="rmField">
-          <label>Price range (£)</label>
-          <div className="rmDouble">
-            <input
-              placeholder="Min"
-              value={criteria.minPrice}
-              onChange={(e) => setField("minPrice", e.target.value)}
-            />
-            <input
-              placeholder="Max"
-              value={criteria.maxPrice}
-              onChange={(e) => setField("maxPrice", e.target.value)}
-            />
-          </div>
+          <label>Min price</label>
+          <input
+            value={criteria.minPrice}
+            onChange={update("minPrice")}
+            placeholder="e.g. 150000"
+          />
         </div>
 
         <div className="rmField">
-          <label>No. of bedrooms</label>
-          <div className="rmDouble">
-            <input
-              placeholder="Min"
-              value={criteria.minBeds}
-              onChange={(e) => setField("minBeds", e.target.value)}
-            />
-            <input
-              placeholder="Max"
-              value={criteria.maxBeds}
-              onChange={(e) => setField("maxBeds", e.target.value)}
-            />
-          </div>
+          <label>Max price</label>
+          <input
+            value={criteria.maxPrice}
+            onChange={update("maxPrice")}
+            placeholder="e.g. 300000"
+          />
         </div>
 
-        <div className="rmField rmButtonWrap">
-          <label className="rmGhostLabel">.</label>
-          <button className="rmButton" type="button">
-            Search properties
-          </button>
+        <div className="rmField">
+          <label>Min beds</label>
+          <input
+            value={criteria.minBeds}
+            onChange={update("minBeds")}
+            placeholder="e.g. 2"
+          />
         </div>
 
-        {/* Optional date row */}
+        <div className="rmField">
+          <label>Max beds</label>
+          <input
+            value={criteria.maxBeds}
+            onChange={update("maxBeds")}
+            placeholder="e.g. 4"
+          />
+        </div>
+
         <div className="rmField">
           <label>Date from</label>
-          <input
-            type="date"
-            value={criteria.dateFrom}
-            onChange={(e) => setField("dateFrom", e.target.value)}
-          />
+          <input type="date" value={criteria.dateFrom} onChange={update("dateFrom")} />
         </div>
 
         <div className="rmField">
           <label>Date to</label>
-          <input
-            type="date"
-            value={criteria.dateTo}
-            onChange={(e) => setField("dateTo", e.target.value)}
-          />
+          <input type="date" value={criteria.dateTo} onChange={update("dateTo")} />
         </div>
       </div>
-    </form>
+    </div>
   );
 }

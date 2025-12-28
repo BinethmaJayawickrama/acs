@@ -1,13 +1,12 @@
-/* ---------- Base / reset-ish ---------- */
-* { box-sizing: border-box; }
 
 :root{
-  --bg: #0f0f10;
-  --panel: #17181b;
-  --border: #2b2d33;
-  --text: #e9e9ee;
-  --muted: #b6b7bf;
+  --yellow: #F2B418;
+  --ice: #ECFBFD;      /* navbar bg */
+  --mist: #AFCDD5;     /* borders / subtle lines */
+  --ink: #2F2838;      /* main dark text */
+  --rose: #815355;     /* accent */
 }
+
 
 html, body {
   height: 100%;

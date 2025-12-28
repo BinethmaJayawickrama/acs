@@ -56,6 +56,11 @@ export default function SearchPage() {
         <div className="filterCard">
           <h1 className="filterTitle">Find property</h1>
           <SearchForm criteria={criteria} onChange={setCriteria} />
+          <pre style={{ background: "#eee", padding: 10, marginTop: 10 }}>
+            {JSON.stringify(criteria, null, 2)}
+            </pre>
+
+
         </div>
       </section>
 
@@ -88,3 +93,4 @@ export default function SearchPage() {
     </div>
   );
 }
+
