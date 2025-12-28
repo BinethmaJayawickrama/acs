@@ -29,27 +29,6 @@ export default function HomePage() {
           <img src="/images/home/hero3.jpg" alt="Apartment building" />
         </div>
       </section>
-
-      <section className="home__features">
-        <h2>What RentReady can do</h2>
-
-        <div className="home__featureGrid">
-          <div className="home__card">
-            <h3>Smart Search & Filters</h3>
-            <p>Filter by type, price range, bedrooms, dates, and postcode area.</p>
-          </div>
-
-          <div className="home__card">
-            <h3>Property Details</h3>
-            <p>Open each property for more details, gallery thumbnails, and more.</p>
-          </div>
-
-          <div className="home__card">
-            <h3>Favourites List</h3>
-            <p>Add favourites and access them quickly from the navbar dropdown.</p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 .sitebar {
   width: 100%;
-  height: 96px;
+  height: 110px;
   background: #AFCBD5;
   border-bottom: 1px solid rgba(0,0,0,0.08);
   display: flex;
@@ -25,10 +25,11 @@
 }
 
 .sitebar__brandTitle {
-  font-size: 42px;           /* bigger */
+  font-size: 50px;           /* bigger */
   font-weight: 800;
   color: #272838;            /* dark navy */
   letter-spacing: 0.2px;
+  font-family: Playfair Display;
 }
 
 /* MIDDLE: search */
@@ -85,7 +86,8 @@
   justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 26px; /* <-- gap between Contact Us and heart */
+  gap: 50px; /* <-- gap between Contact Us and heart */
+  font-size: 100px;
 }
 
 .sitebar__navLink {
@@ -157,3 +159,27 @@
     justify-self: start;
   }
 }
+
+/* ===== FOOTER (same palette as navbar) ===== */
+.sitefooter {
+  width: 100%;
+  background: #AFCDD5;                 /* your requested colour */
+  border-top: 1px solid rgba(0,0,0,0.08);
+  color: #272838;                     /* dark text */
+}
+
+.sitefooter__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 22px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sitefooter__muted {
+  margin-top: 6px;
+  opacity: 0.85;
+  font-weight: 600;
+}
+
