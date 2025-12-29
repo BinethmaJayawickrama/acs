@@ -51,17 +51,10 @@ export default function SearchPage() {
 
   return (
     <div className="searchPage">
-      {/* FILTER SECTION (CENTERED like Rightmove) */}
+      {/* FILTER SECTION (Centered) */}
       <section className="filterSection">
-        <div className="filterCard">
-          <h1 className="filterTitle">Find property</h1>
-          <SearchForm criteria={criteria} onChange={setCriteria} />
-          <pre style={{ background: "#eee", padding: 10, marginTop: 10 }}>
-            {JSON.stringify(criteria, null, 2)}
-            </pre>
-
-
-        </div>
+        {/* IMPORTANT: DO NOT wrap SearchForm inside another filterCard */}
+        <SearchForm criteria={criteria} onChange={setCriteria} />
       </section>
 
       {/* RESULTS + FAVOURITES SIDE BY SIDE */}
@@ -69,7 +62,7 @@ export default function SearchPage() {
         <div className="resultsGridLayout">
           {/* LEFT: property cards */}
           <div className="resultsCol">
-            <h2 className="resultsHeading">Results ({results.length})</h2>
+            <h2 className="resultsHeading">Properties({results.length})</h2>
 
             <ResultsList
               properties={results}
@@ -79,7 +72,7 @@ export default function SearchPage() {
           </div>
 
           {/* RIGHT: favourites panel */}
-          <aside className="favsCol">
+          <aside className="favsCol" id="favourites">
             <FavouritesPanel
               properties={propertiesData}
               favIds={favIds}
@@ -93,4 +86,3 @@ export default function SearchPage() {
     </div>
   );
 }
-

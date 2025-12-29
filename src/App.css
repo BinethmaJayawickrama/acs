@@ -578,3 +578,61 @@ input:focus, select:focus {
   }
 }
 
+/* Clean filter card */
+.filterCard {
+  max-width: 1050px;
+  margin: 18px auto 22px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.filterTitle {
+  margin: 0 0 16px;
+  font-size: 44px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+/* Grid layout */
+.filterGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px 22px; /* bigger gaps */
+}
+
+.filterControl {
+  height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+}
+
+.filterActions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.filterSearchBtn {
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 14px;
+  border: none;
+  background: #272838;  /* or use your palette */
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.filterSearchBtn:hover {
+  filter: brightness(0.95);
+}
+
+@media (max-width: 900px) {
+  .filterGrid { grid-template-columns: 1fr; }
+}
