@@ -1,0 +1,258 @@
+.pd__wrap {
+  background: #ffffff;
+  color: #111;
+}
+
+.pd__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 18px 90px; /* extra bottom padding for the fixed button */
+}
+
+.pd__header {
+  margin: 10px 0 16px;
+}
+
+.pd__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+.pd__price {
+  font-weight: 900;
+}
+
+.pd__meta {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #475569;
+  font-weight: 700;
+}
+
+.pd__dot {
+  opacity: 0.6;
+}
+
+.pd__grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 18px;
+  align-items: start;
+}
+
+.pd__main {
+  min-width: 0;
+}
+
+/* Gallery */
+.pd__gallery {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.pd__mainImg {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.pd__thumbRow {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.pd__thumbBtn {
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 12px;
+  outline: none;
+  flex: 0 0 auto;
+}
+
+.pd__thumb {
+  width: 92px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: #fff;
+}
+
+.pd__thumbBtn.is-active .pd__thumb {
+  border-color: #2f2838;
+}
+
+/* Tabs */
+.pd__tabs {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pd__tab {
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  font-weight: 900;
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.pd__tab.is-active {
+  border-color: #2f2838;
+  background: #eef6ff;
+}
+
+.pd__panel {
+  margin-top: 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.pd__panelTitle {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.pd__text {
+  margin: 0;
+  line-height: 1.6;
+  color: #0f172a;
+}
+
+.pd__muted {
+  color: #475569;
+  font-weight: 600;
+}
+
+.pd__floorImg {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.pd__map {
+  width: 100%;
+  height: 340px;
+  border: 0;
+  border-radius: 14px;
+}
+
+/* Sidebar */
+.pd__side {
+  position: sticky;
+  top: 95px; /* below navbar */
+}
+
+.pd__sideCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.pd__sideTitle {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.pd__facts {
+  display: grid;
+  gap: 10px;
+}
+
+.pd__fact {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.pd__fact:first-child {
+  border-top: none;
+}
+
+.pd__factLabel {
+  color: #475569;
+  font-weight: 800;
+}
+
+.pd__factValue {
+  color: #111827;
+  font-weight: 900;
+}
+
+/* Row that sits BEFORE the footer */
+/* wrapper row: bottom-right BEFORE footer */
+.pd__backRow{
+  display: flex;
+  justify-content: flex-end;
+  padding: 18px 0 14px; /* space above footer */
+}
+
+/* circle button */
+.pd__backIconBtn{
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 4px solid #111;   /* black outline like your icon */
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+
+/* hover */
+.pd__backIconBtn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.22);
+}
+
+/* the LEFT ARROW shape inside the circle */
+.pd__backIcon{
+  width: 22px;
+  height: 22px;
+  border-left: 7px solid #111;
+  border-bottom: 7px solid #111;
+  transform: rotate(45deg); /* makes the chevron point left */
+  margin-left: 6px; /* centers visually */
+}
+
+
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .pd__grid {
+    grid-template-columns: 1fr;
+  }
+  .pd__side {
+    position: static;
+  }
+  .pd__mainImg {
+    height: 320px;
+  }
+}
