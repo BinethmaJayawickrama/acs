@@ -1,360 +1,258 @@
+/* =========================
+   App.css (GLOBAL + PAGE LAYOUT)
+   Keep SearchForm styles ONLY in SearchForm.css
+   ========================= */
 
 :root{
   --yellow: #F2B418;
-  --ice: #ECFBFD;      /* navbar bg */
-  --mist: #AFCDD5;     /* borders / subtle lines */
-  --ink: #2F2838;      /* main dark text */
-  --rose: #815355;     /* accent */
+  --ice: #ECFBFD;   /* light bg (navbar style area) */
+  --mist: #AFCDD5;  /* borders */
+  --ink: #2F2838;   /* main text */
+  --rose: #815355;  /* accent */
+  --page: #ffffff;
+  --panel: #f3f4f6;
+  --line: #e5e7eb;
 }
 
+* { box-sizing: border-box; }
 
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
-body {
+body{
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--page);
+  color: var(--ink);
 }
 
-a {
+a{
   color: inherit;
   text-decoration: none;
-  text-underline-offset: 3px;
 }
 
-img {
+img{
   display: block;
   max-width: 100%;
 }
 
-/* ---------- Layout ---------- */
-.container {
-  padding: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.page {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 16px;
-  padding: 20px;
-  align-items: start;
-}
-
-.main {
-  min-width: 0; /* prevents overflow */
-}
-
-/* Responsive: smaller than iPad landscape */
-@media (max-width: 1024px) {
-  .page {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ---------- Cards / panels ---------- */
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.results {
-  display: grid;
-  gap: 12px;
-}
-
-/* ---------- Typography helpers ---------- */
-h1, h2, h3 {
-  margin: 0 0 10px;
-}
-
-.muted {
-  color: var(--muted);
-  margin-top: 6px;
-}
-
-/* ---------- Buttons ---------- */
-button {
-  cursor: pointer;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #22242a;
-  color: var(--text);
-  padding: 8px 10px;
-}
-
-button:hover {
-  background: #2a2d36;
-}
-
-button:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-/* ---------- Forms (works with plain HTML inputs) ---------- */
-label {
-  display: block;
-  margin: 10px 0 6px;
-  font-size: 14px;
-  color: var(--muted);
-}
-
-input, select {
-  width: 100%;
-  padding: 10px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #111214;
-  color: var(--text);
-  outline: none;
-}
-
-input:focus, select:focus {
-  border-color: #4a4f5d;
-}
-
-.formGrid {
-  display: grid;
-  gap: 10px;
-}
-
-/* ---------- Property card (result item) ---------- */
-.thumb {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  margin-top: 10px;
-}
-
-.rowWrap {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-/* ---------- Favourites panel ---------- */
-.favs {
-  position: sticky;
-  top: 16px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 12px;
-}
-
-.favItem {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.favItem:last-child {
-  border-bottom: none;
-}
-
-.clearBtn {
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* ---------- Gallery (BIG image + thumbnails) ---------- */
-.gallery {
-  margin: 16px 0;
-}
-
-.mainImg {
-  width: 100%;
-  max-height: 420px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-}
-
-/* Thumbnail strip */
-.thumbRow {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-}
-
-/* makes horizontal scroll feel nicer */
-.thumbRow::-webkit-scrollbar {
-  height: 8px;
-}
-.thumbRow::-webkit-scrollbar-thumb {
-  background: #2b2d33;
-  border-radius: 999px;
-}
-.thumbRow::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.thumbSmall {
-  width: 96px;
-  height: 64px;
-  object-fit: cover;
-  border-radius: 10px;
-  border: 2px solid transparent;
-  cursor: pointer;
-  flex: 0 0 auto; /* important for scroll row */
-  opacity: 0.9;
-}
-
-.thumbSmall:hover {
-  opacity: 1;
-  border-color: #3b3f4b;
-}
-
-.thumbSmall.active {
-  border-color: #ffffff;
-  opacity: 1;
-}
-
-/* ---------- Tabs ---------- */
-.tabRow {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-}
-
-.tabRow button {
-  padding: 8px 12px;
-}
-
-.tabActive {
-  border-color: #ffffff;
-}
-
-/* Optional: map iframe spacing */
-.mapFrame {
-  width: 100%;
-  height: 350px;
-  border: 0;
-  border-radius: 12px;
-}
-
-/* App layout */
-.app {
+/* ===== App shell (navbar top, footer bottom) ===== */
+.appShell{
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f7f9fc;
-  color: #111827;
 }
 
-.app__main {
+.appMain{
   flex: 1;
-  padding: 18px;
 }
 
+/* ===== SearchPage base ===== */
+.searchPage{
+  background: var(--page);
+  color: var(--ink);
+}
 
-/* ===== SearchPage layout (matches your sketch) ===== */
+/* Filter section container (centered block under navbar) */
+.filterSection{
+  padding: 28px 16px 10px;
+  display: flex;
+  justify-content: center;
+}
 
-.searchPage {
+/* IMPORTANT:
+   .filterCard / .filterTitle / .rmGrid / etc must be ONLY in SearchForm.css
+   (so do NOT define them here)
+*/
+
+/* ===== Results + Favourites side-by-side ===== */
+.resultsSection{
+  padding: 10px 16px 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.resultsGridLayout{
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px;
-}
 
-/* Filter section under navbar */
-.searchPage__filters {
-  margin-bottom: 16px;
-}
-
-.searchPage__title {
-  margin: 0 0 8px;
-}
-
-.searchPage__h2 {
-  margin: 0 0 12px;
-}
-
-/* Two columns: LEFT results | RIGHT favourites */
-.searchPage__body {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 18px;
+  grid-template-columns: 1fr 340px; /* left: cards, right: favourites */
+  gap: 48px;
   align-items: start;
 }
 
-/* Keep favourites visible while scrolling */
-.searchPage__favourites {
+.resultsHeading{
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+/* Property cards grid
+   (Works if ResultsList uses className="propertyGrid" OR "results")
+*/
+.propertyGrid,
+.results{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Favourites column sticky on desktop */
+.favsCol{
   position: sticky;
-  top: 90px; /* adjust if your navbar height differs */
+  top: 110px; /* adjust if navbar height changes */
+  align-self: start;
 }
 
 /* Responsive: stack on small screens */
-@media (max-width: 900px) {
-  .searchPage__body {
+@media (max-width: 1000px){
+  .resultsGridLayout{
     grid-template-columns: 1fr;
   }
-  .searchPage__favourites {
+
+  .favsCol{
     position: static;
   }
 }
 
-.resultsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+/* ===== Small shared UI (safe defaults) ===== */
+button{
+  font: inherit;
 }
 
-@media (max-width: 1100px) {
-  .resultsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 650px) {
-  .resultsGrid { grid-template-columns: 1fr; }
-}
 
-/* ===== Favourites sidebar (clean boxed panel) ===== */
-.favPanel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
-}
-
-.favPanel__header {
+/* ===== Property Card ===== */
+.pCard{
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.04);
   display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pCard__img{
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  background: #f1f5f9;
+}
+
+.pCard__body{
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.pCard__price{
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.pCard__meta{
+  font-size: 13px;
+  color: #475569;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pCard__desc{
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #334155;
+  min-height: 46px;
+}
+
+.pCard__actions{
+  display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: space-between;
 }
 
-.favPanel__title {
-  margin: 0 0 10px;
+.pCard__link{
+  font-weight: 800;
+  color: #0f172a;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--ice);
+  border: 1px solid var(--mist);
 }
 
-.favPanel__drop {
-  border: 2px dashed #5b5f6d;
+.pCard__link:hover{
+  filter: brightness(0.98);
+}
+
+.pCard__btn{
+  border: none;
   border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 12px;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 12px;
+  font-weight: 900;
+  cursor: pointer;
+  background: var(--yellow);
+  color: #020202;
+}
+
+.pCard__btn:disabled{
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+/* 3 big cards per row */
+.propertyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* ✅ exactly 3 per row */
+  gap: 20px; /* space between cards */
+}
+@media (max-width: 1100px) {
+  .propertyGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .propertyGrid { grid-template-columns: 1fr; }
+}
+
+
+/* results + favourites layout */
+.resultsGridLayout {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 340px; /* left results, right favourites */
+  gap: 20px;
+  align-items: start;
+}
+
+/* ✅ favourites column stays on the right */
+.favsCol {
+  position: sticky;
+  top: 110px; /* adjust based on navbar height */
+}
+
+/* ✅ favourites box styling */
+.favPanel {
+  background: #ffffff;
+  border: 1px solid var(--mist);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 26px rgba(0,0,0,0.05);
+}
+
+.favPanel__title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.favPanel__hint {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #475569;
 }
 
 .favPanel__list {
@@ -365,11 +263,10 @@ input:focus, select:focus {
 
 .favPanel__item {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 10px;
   padding: 10px 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #e5e7eb;
 }
 
 .favPanel__item:first-child {
@@ -377,252 +274,112 @@ input:focus, select:focus {
 }
 
 .favPanel__link {
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.favPanel__link:hover {
-  text-decoration: underline;
-}
-
-.favPanel__removeBtn {
-  background: transparent;
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  border-radius: 10px;
-}
-
-.favPanel__clear {
-  width: 100%;
-  margin-top: 12px;
-}
-
-.favPanel__removeZone {
-  margin-top: 12px;
-  border: 2px dashed #b91c1c;
-  color: #ffb4b4;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: center;
-  background: rgba(185, 28, 28, 0.08);
-}
-
-/* ===== App shell (navbar top, footer bottom) ===== */
-.appShell {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.appMain {
-  flex: 1;
-}
-
-/* ===== Search page layout ===== */
-.searchPage {
-  background: #ffffff;
-  color: #111;
-}
-
-/* Filter section centered like Rightmove */
-.filterSection {
-  padding: 28px 16px;
-  display: flex;
-  justify-content: center;
-}
-.filterCard {
-  width: 100%;
-  max-width: 1200px;
-  background: #f3f4f6;
-  border-radius: 22px;
-  padding: 26px;
-  border: 1px solid #e5e7eb;
-}
-.filterTitle {
-  font-size: 34px;
-  margin: 0 0 18px;
-  font-weight: 900;
-}
-
-/* Rightmove-like form grid */
-.rmForm label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: #111;
-}
-.rmGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px 22px;
-}
-.rmDouble {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.rmButtonWrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.rmGhostLabel {
-  opacity: 0;
-  height: 26px;
-}
-.rmButton {
-  height: 52px;
-  border: none;
-  border-radius: 14px;
-  background: #10b981;
-  color: #fff;
-  font-weight: 900;
-  font-size: 18px;
-  cursor: pointer;
-}
-.rmButton:hover {
-  filter: brightness(0.95);
-}
-
-/* Results + favourites side-by-side */
-.resultsSection {
-  padding: 10px 16px 30px;
-  display: flex;
-  justify-content: center;
-}
-.resultsGridLayout {
-  width: 100%;
-  max-width: 1200px;
-  display: grid;
-  grid-template-columns: 1fr 330px; /* left: cards, right: favourites */
-  gap: 18px;
-  align-items: start;
-}
-.resultsHeading {
-  margin: 0 0 14px;
-  font-size: 22px;
-  font-weight: 900;
-}
-
-/* Cards grid */
-.propertyGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-/* Favourites sidebar stays beside grid */
-.favSidebar {
-  position: sticky;
-  top: 90px; /* below navbar */
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 14px;
-  background: #ffffff;
-}
-.favSidebar__title {
-  margin: 0 0 6px;
-  font-weight: 900;
-}
-.favSidebar__hint {
-  margin: 0 0 12px;
-  color: #475569;
-}
-.favSidebar__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.favSidebar__item {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0;
-  border-top: 1px solid #e5e7eb;
-}
-.favSidebar__item:first-child {
-  border-top: none;
-}
-.favSidebar__link {
-  text-decoration: none;
-  font-weight: 700;
-  color: #111;
-}
-.favSidebar__link:hover {
-  text-decoration: underline;
-}
-.favSidebar__clear {
-  width: 100%;
-  margin-top: 12px;
-}
-
-/* Responsive: favourites goes under only on small screens */
-@media (max-width: 1000px) {
-  .rmGrid {
-    grid-template-columns: 1fr;
-  }
-  .resultsGridLayout {
-    grid-template-columns: 1fr;
-  }
-  .favSidebar {
-    position: static;
-  }
-}
-
-/* Clean filter card */
-.filterCard {
-  max-width: 1050px;
-  margin: 18px auto 22px;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  padding: 22px;
-}
-
-.filterTitle {
-  margin: 0 0 16px;
-  font-size: 44px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
+  font-weight: 800;
   color: #0f172a;
 }
 
-/* Grid layout */
-.filterGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px 22px; /* bigger gaps */
-}
-
-.filterControl {
-  height: 48px;
-  padding: 0 14px;
-  border-radius: 14px;
-  border: 1px solid #cbd5e1;
-  background: #ffffff;
-}
-
-.filterActions {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.filterSearchBtn {
-  height: 44px;
-  padding: 0 18px;
-  border-radius: 14px;
-  border: none;
-  background: #272838;  /* or use your palette */
-  color: white;
-  font-weight: 800;
+.favPanel__removeBtn {
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 6px 10px;
   cursor: pointer;
 }
 
-.filterSearchBtn:hover {
-  filter: brightness(0.95);
+.favPanel__removeBtn:hover {
+  filter: brightness(0.98);
 }
 
-@media (max-width: 900px) {
-  .filterGrid { grid-template-columns: 1fr; }
+.favPanel__clear {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 900;
+  cursor: pointer;
+  background: var(--yellow);
+  color: #020202;
+}
+
+.favPanel__clearBtn:hover {
+  filter: brightness(0.97);
+}
+
+/* responsive stack */
+@media (max-width: 1000px) {
+  .resultsGridLayout { grid-template-columns: 1fr; }
+  .favsCol { position: static; }
+}
+
+/* ===== MINI PROPERTY CARD INSIDE FAVOURITES ===== */
+.favMini {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(175, 205, 213, 0.7);
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.favMini__left {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.favMini__img {
+  width: 74px;
+  height: 74px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(175, 205, 213, 0.8);
+  background: #ECFBFD;
+  flex: 0 0 auto;
+}
+
+.favMini__info {
+  min-width: 0;
+}
+
+.favMini__price {
+  font-weight: 900;
+  color: #2F2838;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.favMini__meta {
+  font-size: 12px;
+  font-weight: 800;
+  color: #2F2838;
+  opacity: 0.75;
+  margin-bottom: 3px;
+}
+
+.favMini__desc {
+  font-size: 12px;
+  color: #2F2838;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.favMini__remove {
+  border: 1px solid rgba(175, 205, 213, 0.9);
+  background: #ECFBFD;
+  color: #2F2838;
+  border-radius: 12px;
+  width: 40px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.favMini__remove:hover {
+  filter: brightness(0.98);
 }

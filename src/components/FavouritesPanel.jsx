@@ -7,42 +7,122 @@ export default function FavouritesPanel({
   onClear,
   onDropFavourite,
 }) {
-  const favProps = (properties || []).filter((p) => favIds.includes(p.id));
+  const favProps = properties.filter((p) => favIds.includes(p.id));
 
-  function allowDrop(e) {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "copy";
+  function parseId(raw) {
+    // handles number ids safely
+    const n = Number(raw);
+    return Number.isNaN(n) ? raw : n;
   }
 
   function handleDropAdd(e) {
     e.preventDefault();
-    const id = Number(e.dataTransfer.getData("text/plain"));
-    if (!Number.isNaN(id)) onDropFavourite?.(id);
+    const raw = e.dataTransfer.getData("text/plain");
+    if (!raw) return;
+
+    const id = parseId(raw);
+    onDropFavourite?.(id);
+  }
+
+  function handleDropRemove(e) {
+    e.preventDefault();
+    const raw = e.dataTransfer.getData("text/plain");
+    if (!raw) return;
+
+    const id = parseId(raw);
+    onRemoveFavourite?.(id);
   }
 
   return (
-    <div className="favSidebar" onDragOver={allowDrop} onDrop={handleDropAdd}>
-      <h3 className="favSidebar__title">Favourites ({favIds.length})</h3>
-      <p className="favSidebar__hint">Drag a card here to add it.</p>
+    <aside className="favPanel" id="favourites">
+      <div className="favPanel__header">
+        <h3 className="favPanel__title">Favourites ({favProps.length})</h3>
+      </div>
+
+      <p className="favPanel__hint">Drag a property card here to add it.</p>
+
+      {/* ✅ DROP TO ADD */}
+      <div
+        className="favPanel__drop"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleDropAdd}
+      >
+        Drop favourites here.
+      </div>
 
       {favProps.length === 0 ? (
-        <p className="muted">No favourites yet.</p>
+        <p className="favPanel__hint">No favourites yet.</p>
       ) : (
-        <ul className="favSidebar__list">
-          {favProps.map((p) => (
-            <li key={p.id} className="favSidebar__item">
-              <Link to={`/property/${p.id}`} className="favSidebar__link">
-                £{Number(p.price).toLocaleString()} — {p.type}
-              </Link>
-              <button onClick={() => onRemoveFavourite(p.id)}>Remove</button>
-            </li>
-          ))}
+        <ul className="favPanel__list">
+          {favProps.map((p) => {
+            const img =
+              (Array.isArray(p.images) && p.images[0]) ||
+              p.image ||
+              "/images/placeholder.jpg";
+
+            return (
+              <li
+                key={p.id}
+                className="favMini"
+                draggable
+                onDragStart={(e) => {
+                  // ✅ so you can drag favourites into Remove Zone
+                  e.dataTransfer.setData("text/plain", String(p.id));
+                  e.dataTransfer.effectAllowed = "move";
+                }}
+              >
+                <Link to={`/property/${p.id}`} className="favMini__left">
+                  <img
+                    className="favMini__img"
+                    src={img}
+                    alt={p.type || "Property"}
+                  />
+
+                  <div className="favMini__info">
+                    <div className="favMini__price">
+                      £{Number(p.price).toLocaleString()}
+                    </div>
+
+                    <div className="favMini__meta">
+                      {(p.type || "property").toLowerCase()} •{" "}
+                      {p.bedrooms ?? "?"} beds •{" "}
+                      {p.postcodeArea || p.postcode || "Postcode N/A"}
+                    </div>
+
+                    <div className="favMini__desc">
+                      {p.description
+                        ? p.description.slice(0, 55) + "…"
+                        : "No description"}
+                    </div>
+                  </div>
+                </Link>
+
+                <button
+                  className="favMini__remove"
+                  type="button"
+                  onClick={() => onRemoveFavourite?.(p.id)}
+                  aria-label="Remove favourite"
+                >
+                  ✕
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
 
-      <button className="favSidebar__clear" onClick={onClear}>
+      <button className="favPanel__clear" type="button" onClick={onClear}>
         Clear all
       </button>
-    </div>
+
+      {/* ✅ DROP TO REMOVE */}
+      <div
+        className="favPanel__removeZone"
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={handleDropRemove}
+      >         
+        (drag here to remove)
+      </div>
+    </aside>
   );
 }

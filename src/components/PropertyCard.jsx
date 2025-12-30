@@ -1,36 +1,63 @@
 import { Link } from "react-router-dom";
 
-export default function PropertyCard({ property, isFavourite, onAddFavourite }) {
+export default function PropertyCard({ property, isFav, onAddFavourite }) {
   if (!property) return null;
 
+  const { id, images, price, description, type, bedrooms, postcodeArea } =
+    property;
+
+  const mainImg =
+    Array.isArray(images) && images.length > 0
+      ? images[0]
+      : "/images/placeholder.jpg";
+
+  const formattedPrice =
+    typeof price === "number"
+      ? price.toLocaleString("en-GB", { style: "currency", currency: "GBP" })
+      : price || "Price not available";
+
   function handleDragStart(e) {
-    e.dataTransfer.setData("text/plain", String(property.id));
-    e.dataTransfer.effectAllowed = "copyMove";
+    // IMPORTANT: this is what favourites drop zone reads
+    e.dataTransfer.setData("text/plain", String(id));
+    e.dataTransfer.effectAllowed = "copy";
   }
 
-  const cover =
-    property?.images?.[0] || property?.image || "/images/placeholder.jpg";
-
   return (
-    <div className="card propertyCard" draggable onDragStart={handleDragStart}>
-      <img className="thumb" src={cover} alt={property.shortDescription} />
+    <article className="pCard" draggable onDragStart={handleDragStart}>
+      <img className="pCard__img" src={mainImg} alt={type || "Property"} />
 
-      <h3 style={{ marginTop: 10 }}>
-        £{Number(property.price).toLocaleString()}
-      </h3>
-      <p className="muted">{property.shortDescription}</p>
+      <div className="pCard__body">
+        <div className="pCard__price">{formattedPrice}</div>
 
-      <div className="rowWrap">
-        <Link to={`/property/${property.id}`}>View Property</Link>
+        <div className="pCard__meta">
+          <span>{type || "Property"}</span>
+          <span>•</span>
+          <span>{bedrooms ? `${bedrooms} beds` : "Beds N/A"}</span>
+          <span>•</span>
+          <span>{postcodeArea || "Postcode N/A"}</span>
+        </div>
 
-        <button type="button" onClick={onAddFavourite} disabled={isFavourite}>
-          {isFavourite ? "Added" : "Add Favourite"}
-        </button>
+        <p className="pCard__desc">
+          {description ? description.slice(0, 90) : "No description"}
+          {description && description.length > 90 ? "..." : ""}
+        </p>
+
+        <div className="pCard__actions">
+          <Link className="pCard__link" to={`/property/${id}`}>
+            View
+          </Link>
+
+          <button
+            className="pCard__btn"
+            type="button"
+            onClick={() => onAddFavourite?.(id)}
+            disabled={isFav}
+            title={isFav ? "Already in favourites" : "Add to favourites"}
+          >
+            {isFav ? "Saved" : "Add Favourite"}
+          </button>
+        </div>
       </div>
-
-      <p className="muted" style={{ marginTop: 10 }}>
-        Tip: drag this card into Favourites →
-      </p>
-    </div>
+    </article>
   );
 }
