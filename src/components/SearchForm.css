@@ -1,114 +1,111 @@
-/* Card wrapper */
+/* =========================
+   SearchForm.css (ONLY)
+   ========================= */
+
+/* Card */
 .filterCard {
-  background: #f3f4f6;          /* light panel */
+  background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 18px;
+  border-radius: 22px;
   padding: 26px;
-  width: 100%;
-  max-width: 980px;            /* keeps it centered and neat */
-  margin: 26px auto 0;         /* centers under navbar */
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-/* Title */
 .filterTitle {
   margin: 0 0 18px;
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 900;
-  letter-spacing: -0.5px;
-  color: #111827;
+  color: #0b1220;
 }
 
-/* Grid layout */
-.filterGrid {
+/* Rightmove-like grid */
+.rmGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;                   /* gaps between boxes */
+  gap: 18px 18px; /* row-gap | column-gap */
+  align-items: start;
 }
 
-/* Field blocks */
-.filterField {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.rmField {
+  min-width: 0;
 }
 
-/* Button field aligns with inputs */
-.filterField--btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-.filterLabel {
-  font-size: 13px;
+.rmLabel {
+  display: block;
+  margin: 0 0 10px;
   font-weight: 800;
-  color: #111827;
+  color: #0b1220;
+  font-size: 15px;
 }
 
-/* Inputs/selects */
-.filterControl {
-  height: 54px;
-  width: 250px; /*adjust the form width*/
-  padding: 0 16px;
-  border-radius: 16px;
-  border: 1px solid #cbd5e1;
+/* Controls */
+.rmControl {
+  width: 100%;
+  height: 56px;
+  border-radius: 14px;
+  border: 1px solid #cfd6e4;
   background: #ffffff;
-  font-size: 15px;
+  padding: 0 16px;
+  font-size: 16px;
   outline: none;
 }
 
-.filterControl:focus {
-  border-color: #94a3b8;
+.rmControl:focus {
+  border-color: #8aa0c8;
+  box-shadow: 0 0 0 3px rgba(138, 160, 200, 0.25);
 }
 
-/* Date row looks better if it doesn't stretch weirdly */
-.filterField input[type="date"] {
-  padding-right: 12px;
+/* ✅ IMPORTANT: remove this if you want full-width inputs.
+   Keeping it will FORCE fixed-width and can cause misalignment. */
+.rmField input,
+.rmField select {
+  width: 270px;          /* ✅ was 270px (that breaks the grid) */
+  height: 56px;         /* match rmControl */
+  border-radius: 14px;
+  border: 1px solid #cfd6e4;
+  padding: 0 16px;
+  font-size: 16px;
+  background: #fff;
 }
 
-/* Button row */
-.filterActions {
-  grid-column: 1 / -1;         /* takes whole row */
+/* Button cell: sits in row 3 col 3 */
+.rmActions {
   display: flex;
+  align-items: flex-end;
   justify-content: flex-end;
-  margin-top: 6px;
+  padding-top: 30px; /* aligns button with inputs */
 }
 
-.filterSearchBtn {
-  height: 44px;
-  border-radius: 12px;
-  padding: 0 26px;
-  background: #1f2437;
-  color: #fff;
+.rmSearchBtn {
+  height: 60px;
+  width: min(100%, 280px);
+  border-radius: 16px;
   border: none;
-  font-weight: 800;
+  background: #dac08a;
+  color: #05221c;
+  font-size: 18px;
+  font-weight: 900;
   cursor: pointer;
 }
 
-.filterSearchBtn:hover {
-  opacity: 0.95;
+.rmSearchBtn:hover {
+  filter: brightness(0.98);
+  background-color: #ecbb5b;
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .filterCard {
-    padding: 18px;
-    margin-top: 18px;
-  }
-
-  .filterTitle {
-    font-size: 32px;
-  }
-
-  .filterGrid {
+@media (max-width: 980px) {
+  .rmGrid {
     grid-template-columns: 1fr;
   }
 
-  .filterActions {
+  .rmActions {
+    padding-top: 0;
     justify-content: stretch;
   }
 
-  .filterSearchBtn {
+  .rmSearchBtn {
     width: 100%;
   }
 }
