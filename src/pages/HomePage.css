@@ -1,13 +1,3 @@
-:root{
-  --yellow: #F2B418;
-  --ice: #ECFBFD;
-  --mist: #AFCDD5;
-  --ink: #2F2838;
-  --rose: #815355;
-  --blu: #272838;
-}
-
-/* Page */
 .home{
   min-height: calc(100vh - 180px);
   padding: 28px 18px 70px;

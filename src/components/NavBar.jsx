@@ -1,65 +1,144 @@
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "./sitebar.css";
 
-function HeartOutlineIcon({ size = 28 }) {
+import propertiesData from "../data/properties.json";
+import { loadFavourites } from "../utils/favouritesStorage";
+
+function HeartOutlineIcon() {
   return (
     <svg
-      width={size}
-      height={size}
+      className="sitebar__favSvg"
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"
     >
       <path
-        d="M20.84 4.61c-1.54-1.34-3.78-1.34-5.32 0L12 7.28 8.48 4.61c-1.54-1.34-3.78-1.34-5.32 0-1.82 1.59-1.95 4.35-.29 6.1L12 21l9.13-10.29c1.66-1.75 1.53-4.51-.29-6.1z"
+        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
         stroke="currentColor"
-        strokeWidth="1.9"
+        strokeWidth="2.2"
+        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
   );
 }
 
+export default function NavBar() {
+  const [openFav, setOpenFav] = useState(false);
+  const [favIds, setFavIds] = useState(() => loadFavourites());
 
-export default function NavBar({ favCount = 0, searchValue = "", onSearchChange, onSearchSubmit }) {
+  const favProps = useMemo(() => {
+    const ids = new Set(favIds);
+    return propertiesData.filter((p) => ids.has(p.id));
+  }, [favIds]);
+
+  function handleFavEnter() {
+    setFavIds(loadFavourites()); // refresh on hover
+    setOpenFav(true);
+  }
+
+  function handleFavLeave() {
+    setOpenFav(false);
+  }
+
   return (
     <header className="sitebar">
       <div className="sitebar__inner">
-        {/* LEFT: Brand */}
-        <Link to="/" className="sitebar__brand" aria-label="Go to home">
+        {/* LEFT */}
+        <Link to="/" className="sitebar__brand" aria-label="Go to Home">
           <span className="sitebar__brandTitle">RentReady</span>
         </Link>
 
-        {/* MIDDLE: Search */}
-        <form
-          className="sitebar__search"
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSearchSubmit?.();
-          }}
-        >
-          <span className="sitebar__searchIcon" aria-hidden="true"></span>
-
+        {/* MIDDLE */}
+        <div className="sitebar__search">
+          <span className="sitebar__searchIcon">🔍</span>
           <input
             className="sitebar__input"
-            value={searchValue}
-            onChange={(e) => onSearchChange?.(e.target.value)}
             placeholder="Postcode area (e.g., BR1)"
           />
-
-          <button className="sitebar__btn" type="submit">
+          <button className="sitebar__btn" type="button">
             Search
           </button>
-        </form>
+        </div>
 
-        {/* RIGHT: Links */}
+        {/* RIGHT */}
         <div className="sitebar__actions">
           <Link className="sitebar__navLink" to="/contact">
             Contact Us
           </Link>
 
-          {/* ONLY ICON (no word) */}
-          <Link to="/search#favourites" className="sitebar__favIcon" aria-label="Favourites"> <HeartOutlineIcon /> </Link>
+          <div
+            className="sitebar__favWrap"
+            onMouseEnter={handleFavEnter}
+            onMouseLeave={handleFavLeave}
+          >
+            <Link
+              to="/search#favourites"
+              className="sitebar__favIcon"
+              aria-label="Favourites"
+              title="Favourites"
+            >
+              <HeartOutlineIcon />
+              <span className="sitebar__favCount">{favProps.length}</span>
+            </Link>
+
+            {openFav && (
+              <div className="sitebar__favDropdown" role="menu">
+                <div className="sitebar__favDropTitle">
+                  Favourites ({favProps.length})
+                </div>
+
+                {favProps.length === 0 ? (
+                  <div className="sitebar__favEmpty">No favourites yet.</div>
+                ) : (
+                  <ul className="sitebar__favList">
+                    {favProps.map((p) => {
+                      const img =
+                        (Array.isArray(p.images) && p.images[0]) ||
+                        p.image ||
+                        "/images/placeholder.jpg";
+
+                      const price =
+                        typeof p.price === "number"
+                          ? p.price.toLocaleString("en-GB", {
+                              style: "currency",
+                              currency: "GBP",
+                            })
+                          : p.price || "Price N/A";
+
+                      return (
+                        <li key={p.id} className="sitebar__favItem">
+                          <Link
+                            to="/search#favourites"
+                            className="sitebar__favItemLink"
+                          >
+                            <img
+                              className="sitebar__favThumb"
+                              src={img}
+                              alt=""
+                            />
+                            <div className="sitebar__favInfo">
+                              <div className="sitebar__favPrice">{price}</div>
+                              <div className="sitebar__favMeta">
+                                {(p.type || "property").toLowerCase()} •{" "}
+                                {p.bedrooms ?? "?"} beds •{" "}
+                                {p.postcodeArea || p.postcode || "N/A"}
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+
+                <div className="sitebar__favHint">
+                  Click an item to jump to the favourites panel
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

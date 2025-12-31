@@ -3,7 +3,7 @@
 .sitebar {
   width: 100%;
   height: 110px;
-  background: #AFCBD5;
+  background-color: var(--ice);
   border-bottom: 1px solid rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
@@ -18,18 +18,18 @@
   gap: 22px;
 }
 
-/* LEFT: brand (left corner) */
+/* LEFT: brand */
 .sitebar__brand {
   justify-self: start;
   text-decoration: none;
 }
 
 .sitebar__brandTitle {
-  font-size: 50px;           /* bigger */
+  font-size: 50px;
   font-weight: 800;
-  color: #272838;            /* dark navy */
+  color: #272838;
   letter-spacing: 0.2px;
-  font-family: Playfair Display;
+  font-family: "Playfair Display", serif;
 }
 
 /* MIDDLE: search */
@@ -70,7 +70,7 @@
   height: 46px;
   padding: 0 18px;
   border: none;
-  background: #272838; /* dark navy */
+  background: #272838;
   color: #ffffff;
   font-weight: 800;
   font-size: 16px;
@@ -81,63 +81,179 @@
   filter: brightness(0.95);
 }
 
-/* RIGHT: Contact + Heart (gap between them) */
+/* RIGHT: Contact + Heart */
 .sitebar__actions {
   justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 50px; /* <-- gap between Contact Us and heart */
-  font-size: 100px;
+  gap: 30px;          /* gap between Contact Us and heart */
+  white-space: nowrap;
 }
 
 .sitebar__navLink {
-  text-decoration: none;     /* remove underline */
+  text-decoration: none;
   font-weight: 800;
   font-size: 18px;
   color: #272838;
 }
 
 .sitebar__navLink:hover {
-  text-decoration: none;     /* keep no underline on hover too */
   opacity: 0.9;
 }
 
-/* HEART ICON ONLY */
+/* ===== FAVOURITES HOVER DROPDOWN ===== */
+
+.sitebar__favWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Heart icon button (ICE background, NO border, NO white box) */
 .sitebar__favIcon {
   position: relative;
-  text-decoration: none;
-  color: #272838;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
+
+  width: 46px;
+  height: 46px;
+
+  background: var(--ice);     /* same as navbar */
+  border: none;               /* remove border */
+  outline: none;
+
   border-radius: 12px;
-}
-.sitebar__favIcon svg {
-  width: 30px;
-  height: 30px;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 0;
 }
 
+/* SVG uses currentColor */
+.sitebar__favSvg {
+  width: 26px;
+  height: 26px;
+  display: block;
+  color: var(--ink);
+}
+
+/* Slight hover only (still ICE) */
 .sitebar__favIcon:hover {
-  background: rgba(39, 40, 56, 0.08);
+  filter: brightness(0.98);
 }
 
-/* badge count */
-.sitebar__badge {
+/* Count badge */
+.sitebar__favCount {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  min-width: 18px;
-  height: 18px;
+  top: -7px;
+  right: -7px;
+
+  min-width: 20px;
+  height: 20px;
   padding: 0 5px;
+
   border-radius: 999px;
-  background: #815355; /* maroon from your palette */
-  color: #fff;
-  font-size: 12px;
+  background: var(--yellow);
+  color: var(--ink);
+
   font-weight: 900;
+  font-size: 11px;
   display: grid;
   place-items: center;
+}
+
+/* Dropdown panel */
+.sitebar__favDropdown {
+  position: absolute;
+  right: 0;
+  top: 54px;
+  width: 340px;
+
+  background: #ffffff;
+  border: 2px solid var(--mist);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(47, 40, 56, 0.18);
+  padding: 12px;
+  z-index: 999;
+
+  font-size: 12px;
+}
+
+.sitebar__favDropTitle {
+  font-weight: 900;
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+.sitebar__favEmpty {
+  padding: 10px 0;
+  color: rgba(47, 40, 56, 0.75);
+  font-weight: 650;
+}
+
+.sitebar__favList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.sitebar__favItem {
+  border-top: 1px solid rgba(47, 40, 56, 0.12);
+}
+
+.sitebar__favItem:first-child {
+  border-top: none;
+}
+
+.sitebar__favItemLink {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 10px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.sitebar__favItemLink:hover {
+  background: rgba(175, 205, 213, 0.28);
+}
+
+.sitebar__favThumb {
+  width: 54px;
+  height: 44px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(47, 40, 56, 0.14);
+  background: #f3f4f6;
+}
+
+.sitebar__favInfo {
+  min-width: 0;
+}
+
+.sitebar__favPrice {
+  font-weight: 950;
+  font-size: 14px;
+}
+
+.sitebar__favMeta {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(47, 40, 56, 0.72);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sitebar__favHint {
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 750;
+  color: rgba(47, 40, 56, 0.7);
 }
 
 /* Responsive */
@@ -161,11 +277,12 @@
 }
 
 /* ===== FOOTER (same palette as navbar) ===== */
+
 .sitefooter {
   width: 100%;
-  background: #AFCDD5;                 /* your requested colour */
+  background: var(--ice);
   border-top: 1px solid rgba(0,0,0,0.08);
-  color: #272838;                     /* dark text */
+  color: #272838;
 }
 
 .sitefooter__inner {
@@ -182,4 +299,3 @@
   opacity: 0.85;
   font-weight: 600;
 }
-
