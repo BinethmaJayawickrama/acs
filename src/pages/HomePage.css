@@ -1,0 +1,120 @@
+:root{
+  --yellow: #F2B418;
+  --ice: #ECFBFD;
+  --mist: #AFCDD5;
+  --ink: #2F2838;
+  --rose: #815355;
+  --blu: #272838;
+}
+
+/* Page */
+.home{
+  min-height: calc(100vh - 180px);
+  padding: 28px 18px 70px;
+  background: #ffffff;
+  color: var(--ink);
+}
+
+/* HERO (centered vertically + horizontally) */
+.homeHero{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 62vh;            /* pushes it to the center instead of the top */
+}
+
+.homeHero__inner{
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 22px;
+  align-items: center;
+
+  background: #f3f4f6;
+  border: 1px solid var(--yellow);
+  border-radius: 24px;
+  padding: 26px;
+}
+
+/* Left */
+.homeHero__title{
+  margin: 0 0 12px;
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--blu);
+}
+
+.homeHero__desc{
+  margin: 0 0 18px;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.55;
+  color: rgba(47, 40, 56, 0.78);
+  max-width: 54ch;
+}
+
+.homeHero__actions{
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+  padding-left: 200px;
+}
+
+.homeHero__btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 900;
+  border: 1px solid transparent;
+  transition: transform 0.08s ease;
+}
+
+.homeHero__btn:active{
+  transform: translateY(1px);
+}
+
+.homeHero__btn--primary{
+  background: var(--yellow);
+  color: #05221c;
+  border-color: rgba(5, 34, 28, 0.10);
+}
+
+.homeHero__btn--primary:hover{
+  filter: brightness(0.98);
+}
+
+.homeHero__btn--ghost{
+  background: #ffffff;
+  color: var(--ink);
+  border-color: rgba(47, 40, 56, 0.18);
+}
+
+.homeHero__btn--ghost:hover{
+  border-color: rgba(47, 40, 56, 0.28);
+}
+
+
+
+/* Right image */
+.homeHero__imageWrap{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.homeHero__image{
+  width: 100%;
+  max-width: 520px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 2px solid var(--mist);
+  box-shadow: 0 10px 30px rgba(47, 40, 56, 0.10);
+}

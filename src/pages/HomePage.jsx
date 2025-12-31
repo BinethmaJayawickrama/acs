@@ -1,34 +1,39 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import "./home.css";
+import "./HomePage.css";
 
 export default function HomePage() {
   return (
-    <div className="home">
-      <section className="home__hero">
-        <div className="home__heroText">
-          <h1>Find your next home, faster.</h1>
-          <p>
-            RentReady helps you search and filter properties using price, bedrooms,
-            date added and postcode area. Save favourites instantly and compare them later.
-          </p>
+    <main className="home">
+      <section className="homeHero" aria-label="Homepage hero">
+        <div className="homeHero__inner">
+          {/* LEFT: text */}
+          <div className="homeHero__text">
+            <h1 className="homeHero__title">Find your next home, faster.</h1>
 
-          <div className="home__cta">
-            <Link className="home__btn home__btnPrimary" to="/search">
-              Start Searching
-            </Link>
-            <Link className="home__btn" to="/contact">
-              Contact Us
-            </Link>
+            <p className="homeHero__desc">
+              RentReady helps you search and filter properties by price, bedrooms and
+              date added. Save favourites instantly and compare them later.
+            </p>
+
+            <div className="homeHero__actions">
+              <Link className="homeHero__btn homeHero__btn--primary" to="/search">
+                Start Searching
+              </Link>
+            </div>
+          </div>
+
+          {/* RIGHT: single image */}
+          <div className="homeHero__imageWrap">
+            {/* Put ONE image here. You can change the path to your own image. */}
+            <img
+              className="homeHero__image"
+              src="/images/house1/1.jpg"
+              alt="Property preview"
+            />
           </div>
         </div>
-
-        <div className="home__heroImages">
-          {/* Put images in: public/images/home/ */}
-          <img src="/images/home/hero1.jpg" alt="Modern house exterior" />
-          <img src="/images/home/hero2.jpg" alt="Living room interior" />
-          <img src="/images/home/hero3.jpg" alt="Apartment building" />
-        </div>
       </section>
-    </div>
+    </main>
   );
 }
