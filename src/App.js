@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 
 import HomePage from "./pages/HomePage";
 import SearchPage from "./pages/SearchPage";
-import ContactPage from "./pages/ContactPage";
+import ContactUs from "./pages/ContactUs";
 import PropertyDetails from "./pages/PropertyDetails";
 
 import "./App.css";
@@ -18,7 +18,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
