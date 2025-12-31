@@ -9,28 +9,16 @@ export default function FavouritesPanel({
 }) {
   const favProps = properties.filter((p) => favIds.includes(p.id));
 
-  function parseId(raw) {
-    // handles number ids safely
-    const n = Number(raw);
-    return Number.isNaN(n) ? raw : n;
-  }
-
   function handleDropAdd(e) {
     e.preventDefault();
-    const raw = e.dataTransfer.getData("text/plain");
-    if (!raw) return;
-
-    const id = parseId(raw);
-    onDropFavourite?.(id);
+    const id = e.dataTransfer.getData("text/plain");
+    if (id && onDropFavourite) onDropFavourite(id);
   }
 
   function handleDropRemove(e) {
     e.preventDefault();
-    const raw = e.dataTransfer.getData("text/plain");
-    if (!raw) return;
-
-    const id = parseId(raw);
-    onRemoveFavourite?.(id);
+    const id = e.dataTransfer.getData("text/plain");
+    if (id) onRemoveFavourite(id);
   }
 
   return (
@@ -41,13 +29,13 @@ export default function FavouritesPanel({
 
       <p className="favPanel__hint">Drag a property card here to add it.</p>
 
-      {/* ✅ DROP TO ADD */}
+      {/* ✅ DROP ZONE: ADD */}
       <div
         className="favPanel__drop"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDropAdd}
       >
-        Drop favourites here.
+        Drop here to add ✅
       </div>
 
       {favProps.length === 0 ? (
@@ -57,20 +45,13 @@ export default function FavouritesPanel({
           {favProps.map((p) => {
             const img =
               (Array.isArray(p.images) && p.images[0]) ||
-              p.image ||
               "/images/placeholder.jpg";
 
+            const shortDesc =
+              p.shortDescription || "No short description.";
+
             return (
-              <li
-                key={p.id}
-                className="favMini"
-                draggable
-                onDragStart={(e) => {
-                  // ✅ so you can drag favourites into Remove Zone
-                  e.dataTransfer.setData("text/plain", String(p.id));
-                  e.dataTransfer.effectAllowed = "move";
-                }}
-              >
+              <li key={p.id} className="favMini">
                 <Link to={`/property/${p.id}`} className="favMini__left">
                   <img
                     className="favMini__img"
@@ -80,19 +61,22 @@ export default function FavouritesPanel({
 
                   <div className="favMini__info">
                     <div className="favMini__price">
-                      £{Number(p.price).toLocaleString()}
+                      {typeof p.price === "number"
+                        ? p.price.toLocaleString("en-GB", {
+                            style: "currency",
+                            currency: "GBP",
+                          })
+                        : "Price N/A"}
                     </div>
 
                     <div className="favMini__meta">
                       {(p.type || "property").toLowerCase()} •{" "}
                       {p.bedrooms ?? "?"} beds •{" "}
-                      {p.postcodeArea || p.postcode || "Postcode N/A"}
+                      {p.postcode || p.postcodeArea || "Postcode N/A"}
                     </div>
 
                     <div className="favMini__desc">
-                      {p.description
-                        ? p.description.slice(0, 55) + "…"
-                        : "No description"}
+                      {shortDesc.length > 55 ? shortDesc.slice(0, 55) + "…" : shortDesc}
                     </div>
                   </div>
                 </Link>
@@ -100,8 +84,9 @@ export default function FavouritesPanel({
                 <button
                   className="favMini__remove"
                   type="button"
-                  onClick={() => onRemoveFavourite?.(p.id)}
+                  onClick={() => onRemoveFavourite(p.id)}
                   aria-label="Remove favourite"
+                  title="Remove"
                 >
                   ✕
                 </button>
@@ -111,17 +96,17 @@ export default function FavouritesPanel({
         </ul>
       )}
 
-      <button className="favPanel__clear" type="button" onClick={onClear}>
+      <button className="favPanel__clear" onClick={onClear} type="button">
         Clear all
       </button>
 
-      {/* ✅ DROP TO REMOVE */}
+      {/* ✅ REMOVE ZONE */}
       <div
         className="favPanel__removeZone"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDropRemove}
-      >         
-        (drag here to remove)
+      >
+        Remove Zone (drop here to remove)
       </div>
     </aside>
   );

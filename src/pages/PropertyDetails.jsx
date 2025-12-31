@@ -127,12 +127,14 @@ export default function PropertyDetails() {
             <div className="pd__panel">
               {tab === "description" && (
                 <>
-                  <h3 className="pd__panelTitle">Description</h3>
-                  <p className="pd__text">
-                    {property.description || "No description provided."}
-                  </p>
+                <h3 className="pd__panelTitle">Description</h3>
+                
+                <p className="pd__text">
+                    {property.longDescription || property.shortDescription || "No description available."}
+                </p>
                 </>
-              )}
+)}
+
 
               {tab === "floorplan" && (
                 <>

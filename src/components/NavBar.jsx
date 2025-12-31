@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./sitebar.css";
 
 import propertiesData from "../data/properties.json";
@@ -9,22 +9,25 @@ function HeartOutlineIcon() {
   return (
     <svg
       className="sitebar__favSvg"
+      width="24"
+      height="24"
       viewBox="0 0 24 24"
       fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path
-        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
     </svg>
   );
 }
 
 export default function NavBar() {
+  const navigate = useNavigate();
+
+  const [searchText, setSearchText] = useState(""); // ✅ NEW
   const [openFav, setOpenFav] = useState(false);
   const [favIds, setFavIds] = useState(() => loadFavourites());
 
@@ -33,8 +36,14 @@ export default function NavBar() {
     return propertiesData.filter((p) => ids.has(p.id));
   }, [favIds]);
 
+  function doSearch() {
+    const q = searchText.trim();
+    if (!q) return;
+    navigate(`/search?location=${encodeURIComponent(q)}`);
+  }
+
   function handleFavEnter() {
-    setFavIds(loadFavourites()); // refresh on hover
+    setFavIds(loadFavourites());
     setOpenFav(true);
   }
 
@@ -45,24 +54,30 @@ export default function NavBar() {
   return (
     <header className="sitebar">
       <div className="sitebar__inner">
-        {/* LEFT */}
         <Link to="/" className="sitebar__brand" aria-label="Go to Home">
           <span className="sitebar__brandTitle">RentReady</span>
         </Link>
 
-        {/* MIDDLE */}
-        <div className="sitebar__search">
+        {/* ✅ Make search submit work */}
+        <form
+          className="sitebar__search"
+          onSubmit={(e) => {
+            e.preventDefault();
+            doSearch();
+          }}
+        >
           <span className="sitebar__searchIcon">🔍</span>
           <input
             className="sitebar__input"
-            placeholder="Postcode area (e.g., BR1)"
+            placeholder="City (e.g., Colombo)"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           />
-          <button className="sitebar__btn" type="button">
+          <button className="sitebar__btn" type="submit">
             Search
           </button>
-        </div>
+        </form>
 
-        {/* RIGHT */}
         <div className="sitebar__actions">
           <Link className="sitebar__navLink" to="/contact">
             Contact Us
@@ -109,21 +124,13 @@ export default function NavBar() {
 
                       return (
                         <li key={p.id} className="sitebar__favItem">
-                          <Link
-                            to="/search#favourites"
-                            className="sitebar__favItemLink"
-                          >
-                            <img
-                              className="sitebar__favThumb"
-                              src={img}
-                              alt=""
-                            />
+                          <Link to="/search#favourites" className="sitebar__favItemLink">
+                            <img className="sitebar__favThumb" src={img} alt="" />
                             <div className="sitebar__favInfo">
                               <div className="sitebar__favPrice">{price}</div>
                               <div className="sitebar__favMeta">
-                                {(p.type || "property").toLowerCase()} •{" "}
-                                {p.bedrooms ?? "?"} beds •{" "}
-                                {p.postcodeArea || p.postcode || "N/A"}
+                                {(p.type || "property").toLowerCase()} • {p.bedrooms ?? "?"} beds •{" "}
+                                {p.postcodeArea || p.postcode || p.city || p.location || "N/A"}
                               </div>
                             </div>
                           </Link>
@@ -134,7 +141,7 @@ export default function NavBar() {
                 )}
 
                 <div className="sitebar__favHint">
-                  Click an item to jump to the favourites panel
+                  Click to jump to the favourites panel
                 </div>
               </div>
             )}

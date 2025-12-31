@@ -204,6 +204,10 @@
   color: #111827;
   font-weight: 900;
 }
+.pd__text{
+    text-align: justify;
+}
+
 
 /* Row that sits BEFORE the footer */
 /* wrapper row: bottom-right BEFORE footer */

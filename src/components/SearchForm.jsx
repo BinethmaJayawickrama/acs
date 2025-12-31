@@ -40,7 +40,7 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
             className="rmControl"
             value={criteria.postcodeArea}
             onChange={(e) => setField("postcodeArea", e.target.value)}
-            placeholder="e.g. BR1"
+            placeholder="e.g. Colombo"
           />
         </div>
 
@@ -52,7 +52,6 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
             type="number"
             value={criteria.minPrice}
             onChange={(e) => setField("minPrice", e.target.value)}
-            placeholder="e.g. 150000"
             min="0"
           />
         </div>
@@ -66,7 +65,6 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
             type="number"
             value={criteria.maxPrice}
             onChange={(e) => setField("maxPrice", e.target.value)}
-            placeholder="e.g. 300000"
             min="0"
           />
         </div>
@@ -79,7 +77,6 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
             type="number"
             value={criteria.minBeds}
             onChange={(e) => setField("minBeds", e.target.value)}
-            placeholder="e.g. 2"
             min="0"
           />
         </div>
@@ -92,7 +89,6 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
             type="number"
             value={criteria.maxBeds}
             onChange={(e) => setField("maxBeds", e.target.value)}
-            placeholder="e.g. 4"
             min="0"
           />
         </div>
@@ -120,7 +116,6 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
           />
         </div>
 
-        {/* ✅ Button placed right after Date To (row 3 col 3) */}
         <div className="rmActions">
           <button type="submit" className="rmSearchBtn">
             Search properties

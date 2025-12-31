@@ -1,60 +1,67 @@
-function toNumber(value) {
-  if (value === null || value === undefined) return null;
-  const s = String(value).trim();
-  if (s === "") return null;
+// src/utils/filterProperties.js
 
-  // remove currency symbols/commas/letters
-  const cleaned = s.replace(/[^0-9.]/g, "");
-  if (cleaned === "") return null;
+export function filterProperties(properties, criteria) {
+  const c = criteria || {};
 
-  const num = Number(cleaned);
-  return Number.isFinite(num) ? num : null;
-}
-
-function toDate(value) {
-  if (!value) return null;
-  const d = new Date(value);
-  return isNaN(d.getTime()) ? null : d;
-}
-
-export function filterProperties(properties, c) {
-  const typeWanted = (c.type || "any").toLowerCase().trim();
-
-  const minPrice = toNumber(c.minPrice);
-  const maxPrice = toNumber(c.maxPrice);
-
-  const minBeds = toNumber(c.minBeds);
-  const maxBeds = toNumber(c.maxBeds);
-
-  const from = toDate(c.dateFrom);
-  const to = toDate(c.dateTo);
-
-  const area = (c.postcodeArea || "").trim().toUpperCase();
+  const q = (c.postcodeArea || "").trim().toLowerCase();
 
   return (properties || []).filter((p) => {
-    const pType = String(p.type || "").toLowerCase().trim();
-    const pPrice = toNumber(p.price);
-    const pBeds = toNumber(p.bedrooms);
-    const pDate = toDate(p.dateAdded);
-    const pPost = String(p.postcode || "").toUpperCase();
+    // --- Type ---
+    if (c.type && c.type !== "any") {
+      const pt = String(p.type || "").toLowerCase();
+      if (pt !== String(c.type).toLowerCase()) return false;
+    }
 
-    // type
-    if (typeWanted !== "any" && pType !== typeWanted) return false;
+    // --- Postcode / City search (works for postcodeArea or city fields if you have them) ---
+    if (q) {
+      const hay = [
+        p.postcodeArea,
+        p.postcode,
+        p.city,
+        p.town,
+        p.location,
+        p.address,
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
 
-    // price
-    if (minPrice !== null && pPrice !== null && pPrice < minPrice) return false;
-    if (maxPrice !== null && pPrice !== null && pPrice > maxPrice) return false;
+      if (!hay.includes(q)) return false;
+    }
 
-    // beds
-    if (minBeds !== null && pBeds !== null && pBeds < minBeds) return false;
-    if (maxBeds !== null && pBeds !== null && pBeds > maxBeds) return false;
+    // --- Price ---
+    const price = Number(p.price);
+    if (c.minPrice !== "" && !Number.isNaN(price)) {
+      if (price < Number(c.minPrice)) return false;
+    }
+    if (c.maxPrice !== "" && !Number.isNaN(price)) {
+      if (price > Number(c.maxPrice)) return false;
+    }
 
-    // date
-    if (from && pDate && pDate < from) return false;
-    if (to && pDate && pDate > to) return false;
+    // --- Bedrooms ---
+    const beds = Number(p.bedrooms);
+    if (c.minBeds !== "" && !Number.isNaN(beds)) {
+      if (beds < Number(c.minBeds)) return false;
+    }
+    if (c.maxBeds !== "" && !Number.isNaN(beds)) {
+      if (beds > Number(c.maxBeds)) return false;
+    }
 
-    // postcode startsWith
-    if (area && !pPost.startsWith(area)) return false;
+    // --- Date (optional: only works if your JSON has a date field) ---
+    // Supports: dateAdded OR added OR date
+    const rawDate = p.dateAdded || p.added || p.date || "";
+    const propDate = rawDate ? new Date(rawDate) : null;
+
+    if (c.dateFrom && propDate instanceof Date && !isNaN(propDate)) {
+      const from = new Date(c.dateFrom);
+      if (propDate < from) return false;
+    }
+    if (c.dateTo && propDate instanceof Date && !isNaN(propDate)) {
+      const to = new Date(c.dateTo);
+      // include the whole "dateTo" day
+      to.setHours(23, 59, 59, 999);
+      if (propDate > to) return false;
+    }
 
     return true;
   });

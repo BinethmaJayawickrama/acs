@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import propertiesData from "../data/properties.json";
 
 import { filterProperties } from "../utils/filterProperties";
@@ -9,6 +10,8 @@ import ResultsList from "../components/ResultsList";
 import FavouritesPanel from "../components/FavouritesPanel";
 
 export default function SearchPage() {
+  const [searchParams] = useSearchParams();
+
   const [criteria, setCriteria] = useState({
     type: "any",
     minPrice: "",
@@ -19,6 +22,14 @@ export default function SearchPage() {
     dateTo: "",
     postcodeArea: "",
   });
+
+  // ✅ auto-fill from URL: /search?location=xxxx
+  useEffect(() => {
+    const location = (searchParams.get("location") || "").trim();
+    if (location) {
+      setCriteria((prev) => ({ ...prev, postcodeArea: location }));
+    }
+  }, [searchParams]);
 
   const [favIds, setFavIds] = useState(loadFavourites());
 
@@ -51,18 +62,16 @@ export default function SearchPage() {
 
   return (
     <div className="searchPage">
-      {/* FILTER SECTION (Centered) */}
       <section className="filterSection">
-        {/* IMPORTANT: DO NOT wrap SearchForm inside another filterCard */}
-        <SearchForm criteria={criteria} onChange={setCriteria} />
+        <div className="filterCard">
+          <SearchForm criteria={criteria} onChange={setCriteria} />
+        </div>
       </section>
 
-      {/* RESULTS + FAVOURITES SIDE BY SIDE */}
       <section className="resultsSection">
         <div className="resultsGridLayout">
-          {/* LEFT: property cards */}
           <div className="resultsCol">
-            <h2 className="resultsHeading">Properties({results.length})</h2>
+            <h2 className="resultsHeading">Properties ({results.length})</h2>
 
             <ResultsList
               properties={results}
@@ -71,8 +80,7 @@ export default function SearchPage() {
             />
           </div>
 
-          {/* RIGHT: favourites panel */}
-          <aside className="favsCol" id="favourites">
+          <aside className="favsCol">
             <FavouritesPanel
               properties={propertiesData}
               favIds={favIds}

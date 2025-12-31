@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 export default function PropertyCard({ property, isFav, onAddFavourite }) {
   if (!property) return null;
 
-  const { id, images, price, description, type, bedrooms, postcodeArea } =
-    property;
+  const {
+    id,
+    images,
+    price,
+    shortDescription,
+    type,
+    bedrooms,
+    postcode,
+  } = property;
 
   const mainImg =
     Array.isArray(images) && images.length > 0
@@ -16,14 +23,8 @@ export default function PropertyCard({ property, isFav, onAddFavourite }) {
       ? price.toLocaleString("en-GB", { style: "currency", currency: "GBP" })
       : price || "Price not available";
 
-  function handleDragStart(e) {
-    // IMPORTANT: this is what favourites drop zone reads
-    e.dataTransfer.setData("text/plain", String(id));
-    e.dataTransfer.effectAllowed = "copy";
-  }
-
   return (
-    <article className="pCard" draggable onDragStart={handleDragStart}>
+    <article className="pCard">
       <img className="pCard__img" src={mainImg} alt={type || "Property"} />
 
       <div className="pCard__body">
@@ -34,12 +35,13 @@ export default function PropertyCard({ property, isFav, onAddFavourite }) {
           <span>•</span>
           <span>{bedrooms ? `${bedrooms} beds` : "Beds N/A"}</span>
           <span>•</span>
-          <span>{postcodeArea || "Postcode N/A"}</span>
+          <span>{postcode || "Postcode N/A"}</span>
         </div>
 
+        {/* ✅ SHORT description on card */}
         <p className="pCard__desc">
-          {description ? description.slice(0, 90) : "No description"}
-          {description && description.length > 90 ? "..." : ""}
+          {shortDescription ? shortDescription.slice(0, 90) : "No description"}
+          {shortDescription && shortDescription.length > 90 ? "..." : ""}
         </p>
 
         <div className="pCard__actions">
@@ -50,9 +52,8 @@ export default function PropertyCard({ property, isFav, onAddFavourite }) {
           <button
             className="pCard__btn"
             type="button"
-            onClick={() => onAddFavourite?.(id)}
+            onClick={onAddFavourite}
             disabled={isFav}
-            title={isFav ? "Already in favourites" : "Add to favourites"}
           >
             {isFav ? "Saved" : "Add Favourite"}
           </button>
