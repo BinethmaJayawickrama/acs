@@ -249,14 +249,34 @@
 
 
 /* Responsive */
-@media (max-width: 1000px) {
-  .pd__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 1024px) {
+  .pd__title {
+    font-size: 24px;
   }
-  .pd__side {
+
+  .pd__meta {
+    flex-wrap: wrap;
+  }
+
+  .pd__mainImg {
+    height: 320px;
+  }
+   .pd__side {
     position: static;
   }
   .pd__mainImg {
     height: 320px;
+  }
+
+}
+
+@media (max-width: 650px) {
+  .pd__mainImg {
+    height: 260px;
+  }
+
+  .pd__thumb {
+    width: 84px;
+    height: 56px;
   }
 }

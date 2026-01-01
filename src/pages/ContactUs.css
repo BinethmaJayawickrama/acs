@@ -87,12 +87,40 @@
 }
 
 /* Responsive */
-@media (max-width: 900px){
-  .contactSimple__whyGrid{
+@media (max-width: 1024px) {
+  .contactSimple__title {
+    font-size: 42px;
+    padding-bottom: 20px;
+  }
+
+  .contactSimple__whyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .contactSimple {
+    padding: 18px 14px 50px;
+  }
+
+  .contactSimple__title {
+    font-size: 34px;
+    padding-bottom: 20px;
+  }
+
+  .contactSimple__whyGrid {
     grid-template-columns: 1fr;
   }
 
-  .infoRow{
-    grid-template-columns: 1fr;
+  .contactSimple__infoBox {
+    padding: 16px;
+  }
+
+  .whyCard {
+    padding: 14px;
+  }
+  .infoLink{
+    font-size: 14px;
   }
 }
+

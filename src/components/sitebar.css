@@ -256,23 +256,116 @@
   color: rgba(47, 40, 56, 0.7);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* iPad landscape and below */
+@media (max-width: 1023px) {
   .sitebar {
     height: auto;
-    padding: 12px 0;
+    padding: 14px 0;
   }
 
   .sitebar__inner {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sitebar__brandTitle {
+    font-size: 42px;
+    padding-left: 390px;
   }
 
   .sitebar__search {
-    max-width: 100%;
+    max-width: 520px;
   }
 
   .sitebar__actions {
     justify-self: start;
+    gap: 20px;
+    padding-left: 390px;
+  }
+
+  .sitebar__favDropdown {
+    width: min(340px, calc(100vw - 40px));
+  }
+}
+
+/* phones */
+
+@media (max-width: 600px) {
+  .sitebar {
+    height: auto;
+    padding: 12px 0;
+    width: device-width;
+  }
+
+  /* Stack: Brand -> Search -> Actions */
+  .sitebar__inner {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 14px;
+  }
+
+  .sitebar__brandTitle {
+    font-size: 34px;          /* smaller so it won’t overflow */
+    line-height: 1.05;
+    text-align: center;
+    padding-left: 120px;
+  }
+
+  .sitebar__search {
+    max-width: 100%;
+    height: 44px;
+  }
+
+  .sitebar__input {
+    font-size: 14px;
+    height: 44px;
+  }
+
+  .sitebar__btn {
+    height: 44px;
+    font-size: 14px;
+    padding: 0 14px;
+  }
+
+  /* Keep Contact + Heart on one row */
+  .sitebar__actions {
+    justify-self: start;
+    gap: 18px;
+    flex-wrap: wrap;
+    text-align: center;
+    padding-left: 120px;
+  }
+
+  .sitebar__navLink {
+    font-size: 16px;
+  }
+
+  .sitebar__favIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sitebar__favSvg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* IMPORTANT: dropdown should NOT overflow on phones */
+  .sitebar__favDropdown {
+    position: fixed;                  /* take it out of the navbar flow */
+    left: 12px;
+    right: 12px;
+    top: 140px;                       /* adjust if your navbar height differs */
+    width: auto;
+    max-height: 60vh;
+    overflow: auto;
+    z-index: 9999;
+  }
+
+  /* Badge stays aligned */
+  .sitebar__favCount {
+    top: -6px;
+    right: -6px;
   }
 }
 
