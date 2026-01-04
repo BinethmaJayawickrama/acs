@@ -23,7 +23,6 @@ export default function SearchPage() {
     postcodeArea: "",
   });
 
-  // ✅ auto-fill from URL: /search?location=xxxx
   useEffect(() => {
     const location = (searchParams.get("location") || "").trim();
     if (location) {
@@ -70,9 +69,17 @@ export default function SearchPage() {
 
       <section className="resultsSection">
         <div className="resultsGridLayout">
-          <div className="resultsCol">
-            <h2 className="resultsHeading">Properties ({results.length})</h2>
+          {/* ✅ titles in the SAME grid row */}
+          <h2 className="resultsHeading resultsHeading--props">
+            Properties ({results.length})
+          </h2>
 
+          <h2 className="resultsHeading resultsHeading--favs">
+            Favourites ({favIds.length})
+          </h2>
+
+          {/* LEFT */}
+          <div className="resultsCol">
             <ResultsList
               properties={results}
               favIds={favIds}
@@ -80,6 +87,7 @@ export default function SearchPage() {
             />
           </div>
 
+          {/* RIGHT */}
           <aside className="favsCol">
             <FavouritesPanel
               properties={propertiesData}
@@ -87,6 +95,7 @@ export default function SearchPage() {
               onRemoveFavourite={removeFavourite}
               onClear={clearFavourites}
               onDropFavourite={addFavourite}
+              showTitle={false}   // ✅ hide duplicate title inside panel
             />
           </aside>
         </div>

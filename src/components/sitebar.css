@@ -1,39 +1,57 @@
-/* ===== NAVBAR (light blue, bigger than page text) ===== */
+/* =========================
+   Sitebar + Footer (NEW PALETTE)
+   Primary:  #2D5A27 (green)
+   Secondary:#F5F5DC (beige)
+   Accent:   #333333 (charcoal)
+   ========================= */
 
-.sitebar {
+:root{
+  --primary: #2D5A27;
+  --secondary: #F5F5DC;
+  --accent: #333333;
+}
+
+/* ===== NAVBAR ===== */
+
+.sitebar{
   width: 100%;
   height: 110px;
-  background-color: var(--ice);
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  background: var(--primary);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
   display: flex;
   align-items: center;
 }
 
-.sitebar__inner {
+.sitebar__inner{
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 22px;
+
+  /* ONE LINE layout */
   display: grid;
-  grid-template-columns: auto minmax(360px, 1fr) auto;
+  grid-template-columns: auto minmax(260px, 1fr) auto;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
 }
 
-/* LEFT: brand */
-.sitebar__brand {
+/* LEFT: Brand */
+.sitebar__brand{
   justify-self: start;
   text-decoration: none;
 }
 
-.sitebar__brandTitle {
-  font-size: 50px;
-  font-weight: 800;
-  color: #272838;
+.sitebar__brandTitle{
+  font-size: 46px;
+  font-weight: 900;
   letter-spacing: 0.2px;
+  color: var(--secondary);
   font-family: "Playfair Display", serif;
+  line-height: 1;
 }
 
-/* MIDDLE: search */
-.sitebar__search {
+/* MIDDLE: Search */
+.sitebar__search{
   justify-self: center;
   width: 100%;
   max-width: 620px;
@@ -42,75 +60,74 @@
   display: flex;
   align-items: center;
 
-  background: #ffffff;
+  background: var(--secondary);
   border: 1px solid rgba(0,0,0,0.18);
   border-radius: 999px;
   overflow: hidden;
 }
 
-.sitebar__searchIcon {
+.sitebar__searchIcon{
   padding: 0 12px;
   font-size: 16px;
-  color: #6b7280;
+  color: var(--accent);
   user-select: none;
 }
 
-.sitebar__input {
+.sitebar__input{
   flex: 1;
   height: 46px;
   border: none;
   outline: none;
   padding: 0 10px;
   font-size: 16px;
-  color: #111827;
+  color: var(--accent);
   background: transparent;
 }
 
-.sitebar__btn {
+.sitebar__btn{
   height: 46px;
   padding: 0 18px;
   border: none;
-  background: #272838;
-  color: #ffffff;
-  font-weight: 800;
+  background: var(--accent);
+  color: var(--secondary);
+  font-weight: 900;
   font-size: 16px;
   cursor: pointer;
 }
 
-.sitebar__btn:hover {
+.sitebar__btn:hover{
   filter: brightness(0.95);
 }
 
-/* RIGHT: Contact + Heart */
-.sitebar__actions {
+/* RIGHT: links */
+.sitebar__actions{
   justify-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 30px;          /* gap between Contact Us and heart */
+  gap: 26px;
   white-space: nowrap;
 }
 
-.sitebar__navLink {
+.sitebar__navLink{
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 900;
   font-size: 18px;
-  color: #272838;
+  color: var(--secondary);
 }
 
-.sitebar__navLink:hover {
+.sitebar__navLink:hover{
   opacity: 0.9;
 }
 
-/* ===== FAVOURITES HOVER DROPDOWN ===== */
+/* ===== FAV ICON + DROPDOWN ===== */
 
-.sitebar__favWrap {
+.sitebar__favWrap{
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
-/* Heart icon button (ICE background, NO border, NO white box) */
-.sitebar__favIcon {
+.sitebar__favIcon{
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -119,42 +136,39 @@
   width: 46px;
   height: 46px;
 
-  background: var(--ice);     /* same as navbar */
-  border: none;               /* remove border */
-  outline: none;
+  background: transparent;
+  border: 2px solid rgba(245,245,220,0.35);
+  border-radius: 14px;
 
-  border-radius: 12px;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--secondary);
   line-height: 0;
 }
 
-/* SVG uses currentColor */
-.sitebar__favSvg {
+.sitebar__favIcon:hover{
+  background: rgba(245,245,220,0.12);
+}
+
+.sitebar__favSvg{
   width: 26px;
   height: 26px;
   display: block;
-  color: var(--ink);
+  color: currentColor;
 }
 
-/* Slight hover only (still ICE) */
-.sitebar__favIcon:hover {
-  filter: brightness(0.98);
-}
-
-/* Count badge */
-.sitebar__favCount {
+/* count badge */
+.sitebar__favCount{
   position: absolute;
   top: -7px;
   right: -7px;
 
   min-width: 20px;
   height: 20px;
-  padding: 0 5px;
+  padding: 0 6px;
 
   border-radius: 999px;
-  background: var(--yellow);
-  color: var(--ink);
+  background: var(--accent);
+  color: var(--secondary);
 
   font-weight: 900;
   font-size: 11px;
@@ -162,37 +176,38 @@
   place-items: center;
 }
 
-/* Dropdown panel */
-.sitebar__favDropdown {
+/* dropdown */
+.sitebar__favDropdown{
   position: absolute;
   right: 0;
-  top: 54px;
+  top: 58px;
   width: 340px;
 
-  background: #ffffff;
-  border: 2px solid var(--mist);
+  background: var(--secondary);
+  border: 2px solid rgba(51,51,51,0.18);
   border-radius: 16px;
-  box-shadow: 0 18px 45px rgba(47, 40, 56, 0.18);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.18);
   padding: 12px;
   z-index: 999;
 
   font-size: 12px;
+  color: var(--accent);
 }
 
-.sitebar__favDropTitle {
-  font-weight: 900;
-  font-size: 12px;
+.sitebar__favDropTitle{
+  font-weight: 950;
+  font-size: 13px;
   margin-bottom: 10px;
-  color: var(--ink);
+  color: var(--accent);
 }
 
-.sitebar__favEmpty {
+.sitebar__favEmpty{
   padding: 10px 0;
-  color: rgba(47, 40, 56, 0.75);
-  font-weight: 650;
+  color: rgba(51,51,51,0.85);
+  font-weight: 700;
 }
 
-.sitebar__favList {
+.sitebar__favList{
   list-style: none;
   padding: 0;
   margin: 0;
@@ -200,195 +215,159 @@
   overflow: auto;
 }
 
-.sitebar__favItem {
-  border-top: 1px solid rgba(47, 40, 56, 0.12);
+.sitebar__favItem{
+  border-top: 1px solid rgba(51,51,51,0.15);
 }
+.sitebar__favItem:first-child{ border-top: none; }
 
-.sitebar__favItem:first-child {
-  border-top: none;
-}
-
-.sitebar__favItemLink {
+.sitebar__favItemLink{
   display: grid;
   grid-template-columns: 54px 1fr;
   gap: 10px;
-  padding: 10px 6px;
-  border-radius: 12px;
+  padding: 10px 8px;
+  border-radius: 14px;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--accent);
 }
 
-.sitebar__favItemLink:hover {
-  background: rgba(175, 205, 213, 0.28);
+.sitebar__favItemLink:hover{
+  background: rgba(45,90,39,0.12);
 }
 
-.sitebar__favThumb {
+.sitebar__favThumb{
   width: 54px;
   height: 44px;
   border-radius: 10px;
   object-fit: cover;
-  border: 1px solid rgba(47, 40, 56, 0.14);
-  background: #f3f4f6;
+  border: 1px solid rgba(51,51,51,0.15);
+  background: #fff;
 }
 
-.sitebar__favInfo {
-  min-width: 0;
-}
+.sitebar__favInfo{ min-width: 0; }
 
-.sitebar__favPrice {
+.sitebar__favPrice{
   font-weight: 950;
   font-size: 14px;
+  color: var(--accent);
 }
 
-.sitebar__favMeta {
+.sitebar__favMeta{
   font-size: 11px;
-  font-weight: 700;
-  color: rgba(47, 40, 56, 0.72);
+  font-weight: 750;
+  color: rgba(51,51,51,0.7);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.sitebar__favHint {
+.sitebar__favHint{
   margin-top: 10px;
   font-size: 11px;
   font-weight: 750;
-  color: rgba(47, 40, 56, 0.7);
+  color: rgba(51,51,51,0.7);
 }
 
-/* iPad landscape and below */
-@media (max-width: 1023px) {
-  .sitebar {
-    height: auto;
-    padding: 14px 0;
+/* =========================
+   <= 1024px (still ONE LINE)
+   ========================= */
+@media (max-width: 1024px){
+  .sitebar{
+    height: 96px;
   }
 
-  .sitebar__inner {
-    grid-template-columns: 1fr;
+  .sitebar__inner{
+    max-width: 100%;
+    grid-template-columns: auto minmax(200px, 1fr) auto;
     gap: 12px;
+    padding: 0 16px;
   }
 
-  .sitebar__brandTitle {
-    font-size: 42px;
-    padding-left: 390px;
+  .sitebar__brandTitle{
+    font-size: 36px;
   }
 
-  .sitebar__search {
+  .sitebar__search{
     max-width: 520px;
+    height: 44px;
   }
 
-  .sitebar__actions {
-    justify-self: start;
-    gap: 20px;
-    padding-left: 390px;
-  }
+  .sitebar__input{ height: 44px; font-size: 14px; }
+  .sitebar__btn{ height: 44px; font-size: 14px; }
 
-  .sitebar__favDropdown {
-    width: min(340px, calc(100vw - 40px));
+  .sitebar__navLink{ font-size: 16px; }
+
+  .sitebar__favDropdown{
+    width: min(340px, calc(100vw - 24px));
   }
 }
 
-/* phones */
-
-@media (max-width: 600px) {
-  .sitebar {
+/* =========================
+   <= 600px (STACKED)
+   ========================= */
+@media (max-width: 600px){
+  .sitebar{
     height: auto;
     padding: 12px 0;
-    width: device-width;
   }
 
-  /* Stack: Brand -> Search -> Actions */
-  .sitebar__inner {
+  .sitebar__inner{
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 0 14px;
-  }
-
-  .sitebar__brandTitle {
-    font-size: 34px;          /* smaller so it won’t overflow */
-    line-height: 1.05;
     text-align: center;
-    padding-left: 120px;
   }
 
-  .sitebar__search {
+  .sitebar__brand{
+    justify-self: center;
+  }
+
+  .sitebar__brandTitle{
+    font-size: 34px;
+  }
+
+  .sitebar__search{
+    justify-self: center;
     max-width: 100%;
-    height: 44px;
   }
 
-  .sitebar__input {
-    font-size: 14px;
-    height: 44px;
-  }
-
-  .sitebar__btn {
-    height: 44px;
-    font-size: 14px;
-    padding: 0 14px;
-  }
-
-  /* Keep Contact + Heart on one row */
-  .sitebar__actions {
-    justify-self: start;
+  .sitebar__actions{
+    justify-self: center;
     gap: 18px;
-    flex-wrap: wrap;
-    text-align: center;
-    padding-left: 120px;
   }
 
-  .sitebar__navLink {
-    font-size: 16px;
-  }
-
-  .sitebar__favIcon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .sitebar__favSvg {
-    width: 24px;
-    height: 24px;
-  }
-
-  /* IMPORTANT: dropdown should NOT overflow on phones */
-  .sitebar__favDropdown {
-    position: fixed;                  /* take it out of the navbar flow */
+  /* dropdown must not overflow on phones */
+  .sitebar__favDropdown{
+    position: fixed;
     left: 12px;
     right: 12px;
-    top: 140px;                       /* adjust if your navbar height differs */
+    top: 150px;
     width: auto;
     max-height: 60vh;
     overflow: auto;
     z-index: 9999;
   }
-
-  /* Badge stays aligned */
-  .sitebar__favCount {
-    top: -6px;
-    right: -6px;
-  }
 }
 
-/* ===== FOOTER (same palette as navbar) ===== */
+/* ===== FOOTER ===== */
 
-.sitefooter {
+.sitefooter{
   width: 100%;
-  background: var(--ice);
-  border-top: 1px solid rgba(0,0,0,0.08);
-  color: #272838;
+  background: var(--primary);
+  border-top: 1px solid rgba(0,0,0,0.12);
+  color: var(--secondary);
 }
 
-.sitefooter__inner {
+.sitefooter__inner{
   max-width: 1200px;
   margin: 0 auto;
   padding: 18px 22px;
   text-align: center;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
 }
 
-.sitefooter__muted {
+.sitefooter__muted{
   margin-top: 6px;
-  opacity: 0.85;
-  font-weight: 600;
+  opacity: 0.9;
+  font-weight: 650;
 }

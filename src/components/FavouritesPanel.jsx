@@ -6,6 +6,7 @@ export default function FavouritesPanel({
   onRemoveFavourite,
   onClear,
   onDropFavourite,
+  showTitle = true, // ✅ add this (default true)
 }) {
   const favProps = properties.filter((p) => favIds.includes(p.id));
 
@@ -23,9 +24,12 @@ export default function FavouritesPanel({
 
   return (
     <aside className="favPanel" id="favourites">
-      <div className="favPanel__header">
-        <h3 className="favPanel__title">Favourites ({favProps.length})</h3>
-      </div>
+      {/* ✅ FIXED: properly closed header block */}
+      {showTitle && (
+        <div className="favPanel__header">
+          <h3 className="favPanel__title">Favourites ({favProps.length})</h3>
+        </div>
+      )}
 
       <p className="favPanel__hint">Drag a property card here to add it.</p>
 
@@ -47,8 +51,7 @@ export default function FavouritesPanel({
               (Array.isArray(p.images) && p.images[0]) ||
               "/images/placeholder.jpg";
 
-            const shortDesc =
-              p.shortDescription || "No short description.";
+            const shortDesc = p.shortDescription || "No short description.";
 
             return (
               <li key={p.id} className="favMini">
@@ -76,7 +79,9 @@ export default function FavouritesPanel({
                     </div>
 
                     <div className="favMini__desc">
-                      {shortDesc.length > 55 ? shortDesc.slice(0, 55) + "…" : shortDesc}
+                      {shortDesc.length > 55
+                        ? shortDesc.slice(0, 55) + "…"
+                        : shortDesc}
                     </div>
                   </div>
                 </Link>

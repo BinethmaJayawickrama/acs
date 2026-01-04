@@ -58,7 +58,6 @@ export default function NavBar() {
           <span className="sitebar__brandTitle">RentReady</span>
         </Link>
 
-        {/* ✅ Make search submit work */}
         <form
           className="sitebar__search"
           onSubmit={(e) => {
