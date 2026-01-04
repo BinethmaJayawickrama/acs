@@ -153,7 +153,7 @@ img{
 /* Favourites column sticky on desktop */
 .favsCol{
   position: sticky;
-  top: 110px; /* adjust if navbar height changes */
+  top: 120px; /* adjust if navbar height changes */
   align-self: start;
 }
 
@@ -182,12 +182,25 @@ button{
   display: flex;
   flex-direction: column;
   min-width: 0;
-  transition: transform .18s ease, box-shadow .18s ease;
 }
+
+.pCard{
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
 .pCard:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+  transform: translateY(-4px);
+  border-color: rgba(45, 90, 39, 0.45);      /* uses your primary green */
+  background: #EAF2E7;                       /* soft sage tint */
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
 }
+
+/* nice for keyboard navigation too */
+.pCard:focus-within{
+  border-color: rgba(45, 90, 39, 0.65);
+  box-shadow: 0 0 0 4px rgba(45, 90, 39, 0.15), 0 16px 40px rgba(0,0,0,0.14);
+}
+
 
 .pCard__img{
   width: 100%;
@@ -294,6 +307,8 @@ button{
   padding: 20px;
   box-shadow: 0 12px 26px rgba(0,0,0,0.06);
   min-height: 280px;
+  max-height: calc(100vh - 140px); 
+  overflow: auto;
 }
 
 .favPanel__title{
@@ -330,6 +345,18 @@ button{
 .favPanel__clear:hover{
   filter: brightness(1.03);
 }
+@media (max-width: 1000px){
+  .favsCol{
+    position: static;   /* stop sticky when stacked */
+    top: auto;
+  }
+
+  .favPanel{
+    max-height: none;
+    overflow: visible;
+  }
+}
+
 
 /* ===== MINI PROPERTY CARD INSIDE FAVOURITES ===== */
 .favMini{

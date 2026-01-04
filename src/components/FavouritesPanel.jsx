@@ -6,40 +6,53 @@ export default function FavouritesPanel({
   onRemoveFavourite,
   onClear,
   onDropFavourite,
-  showTitle = true, // ✅ add this (default true)
 }) {
   const favProps = properties.filter((p) => favIds.includes(p.id));
 
+  // ✅ write id in multiple formats (some browsers are picky)
+  function setDragId(e, id, mode = "copy") {
+    const safe = String(id);
+    e.dataTransfer.setData("text/plain", safe);
+    e.dataTransfer.setData("text", safe);
+    e.dataTransfer.effectAllowed = mode;
+  }
+
+  function readDragId(e) {
+    return (
+      (e.dataTransfer.getData("text/plain") ||
+        e.dataTransfer.getData("text") ||
+        "")
+    ).trim();
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault(); // REQUIRED
+  }
+
   function handleDropAdd(e) {
     e.preventDefault();
-    const id = e.dataTransfer.getData("text/plain");
-    if (id && onDropFavourite) onDropFavourite(id);
+    const id = readDragId(e);
+    if (!id) return;
+    onDropFavourite?.(id);
   }
 
   function handleDropRemove(e) {
     e.preventDefault();
-    const id = e.dataTransfer.getData("text/plain");
-    if (id) onRemoveFavourite(id);
+    const id = readDragId(e);
+    if (!id) return;
+    onRemoveFavourite?.(id);
   }
 
   return (
     <aside className="favPanel" id="favourites">
-      {/* ✅ FIXED: properly closed header block */}
-      {showTitle && (
-        <div className="favPanel__header">
-          <h3 className="favPanel__title">Favourites ({favProps.length})</h3>
-        </div>
-      )}
 
-      <p className="favPanel__hint">Drag a property card here to add it.</p>
-
-      {/* ✅ DROP ZONE: ADD */}
+      {/* ADD ZONE */}
       <div
         className="favPanel__drop"
-        onDragOver={(e) => e.preventDefault()}
+        onDragOver={handleDragOver}
         onDrop={handleDropAdd}
       >
-        Drop here to add ✅
+        Drop here to add !
       </div>
 
       {favProps.length === 0 ? (
@@ -53,35 +66,48 @@ export default function FavouritesPanel({
 
             const shortDesc = p.shortDescription || "No short description.";
 
+            const formattedPrice =
+              typeof p.price === "number"
+                ? p.price.toLocaleString("en-LK", {
+                    style: "currency",
+                    currency: "LKR",
+                    maximumFractionDigits: 0,
+                  })
+                : "Price N/A";
+
             return (
-              <li key={p.id} className="favMini">
-                <Link to={`/property/${p.id}`} className="favMini__left">
+              <li
+                key={p.id}
+                className="favMini"
+                draggable
+                onDragStart={(e) => setDragId(e, p.id, "move")}
+              >
+                {/*ALSO make the link draggable (so dragging from text works) */}
+                <Link
+                  to={`/property/${p.id}`}
+                  className="favMini__left"
+                  draggable
+                  onDragStart={(e) => setDragId(e, p.id, "move")}
+                >
+                  {/* ALSO make the image draggable (so dragging from image works) */}
                   <img
                     className="favMini__img"
                     src={img}
                     alt={p.type || "Property"}
+                    draggable
+                    onDragStart={(e) => setDragId(e, p.id, "move")}
                   />
 
                   <div className="favMini__info">
-                    <div className="favMini__price">
-                      {typeof p.price === "number"
-                        ? p.price.toLocaleString("en-GB", {
-                            style: "currency",
-                            currency: "GBP",
-                          })
-                        : "Price N/A"}
-                    </div>
+                    <div className="favMini__price">{formattedPrice}</div>
 
                     <div className="favMini__meta">
-                      {(p.type || "property").toLowerCase()} •{" "}
-                      {p.bedrooms ?? "?"} beds •{" "}
+                      {(p.type || "property").toLowerCase()} • {p.bedrooms ?? "?"} beds •{" "}
                       {p.postcode || p.postcodeArea || "Postcode N/A"}
                     </div>
 
                     <div className="favMini__desc">
-                      {shortDesc.length > 55
-                        ? shortDesc.slice(0, 55) + "…"
-                        : shortDesc}
+                      {shortDesc.length > 55 ? shortDesc.slice(0, 55) + "…" : shortDesc}
                     </div>
                   </div>
                 </Link>
@@ -90,6 +116,7 @@ export default function FavouritesPanel({
                   className="favMini__remove"
                   type="button"
                   onClick={() => onRemoveFavourite(p.id)}
+                  draggable={false}
                   aria-label="Remove favourite"
                   title="Remove"
                 >
@@ -105,10 +132,10 @@ export default function FavouritesPanel({
         Clear all
       </button>
 
-      {/* ✅ REMOVE ZONE */}
+      {/*  REMOVE ZONE */}
       <div
         className="favPanel__removeZone"
-        onDragOver={(e) => e.preventDefault()}
+        onDragOver={handleDragOver}
         onDrop={handleDropRemove}
       >
         Remove Zone (drop here to remove)
