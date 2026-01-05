@@ -8,8 +8,8 @@
 
 ## 🔗 Links
 
-* **GitHub Repository**: [Add GitHub repo link here]
-* **Live Deployment**: [Add Vercel deployment link here]
+* **GitHub Repository**: https://github.com/BinethmaJayawickrama/acs
+* **Live Deployment**: [https://rentready-seven.vercel.app/
 
 ## 🎓 Coursework Overview
 
