@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Navbar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 
 import HomePage from "./pages/HomePage";
@@ -12,7 +12,7 @@ import "./App.css";
 export default function App() {
   return (
     <div className="appShell">
-      <Navbar />
+      <NavBar />
 
       <main className="appMain">
         <Routes>
