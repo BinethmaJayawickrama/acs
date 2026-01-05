@@ -1,66 +1,60 @@
-// src/utils/filterProperties.js
+export function filterProperties(properties, criteria = {}) {
+  const list = Array.isArray(properties) ? properties : [];
 
-export function filterProperties(properties, criteria) {
-  const c = criteria || {};
+  const toNum = (v) => {
+    if (v === "" || v === null || v === undefined) return null;
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  };
 
-  const q = (c.postcodeArea || "").trim().toLowerCase();
+  const hasDate = (v) => v && !Number.isNaN(new Date(v).getTime());
 
-  return (properties || []).filter((p) => {
+  const minPrice = toNum(criteria.minPrice);
+  const maxPrice = toNum(criteria.maxPrice);
+  const minBeds = toNum(criteria.minBeds);
+  const maxBeds = toNum(criteria.maxBeds);
+
+  const dateFrom = hasDate(criteria.dateFrom) ? new Date(criteria.dateFrom) : null;
+  const dateTo = hasDate(criteria.dateTo) ? new Date(criteria.dateTo) : null;
+
+  const type = (criteria.type || "any").toLowerCase();
+  const postcodeArea = (criteria.postcodeArea || "").trim().toLowerCase();
+
+  return list.filter((p) => {
+    if (!p) return false;
+
     // --- Type ---
-    if (c.type && c.type !== "any") {
-      const pt = String(p.type || "").toLowerCase();
-      if (pt !== String(c.type).toLowerCase()) return false;
-    }
-
-    // --- Postcode / City search (works for postcodeArea or city fields if you have them) ---
-    if (q) {
-      const hay = [
-        p.postcodeArea,
-        p.postcode,
-        p.city,
-        p.town,
-        p.location,
-        p.address,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      if (!hay.includes(q)) return false;
+    if (type !== "any" && String(p.type || "").toLowerCase() !== type) {
+      return false;
     }
 
     // --- Price ---
-    const price = Number(p.price);
-    if (c.minPrice !== "" && !Number.isNaN(price)) {
-      if (price < Number(c.minPrice)) return false;
-    }
-    if (c.maxPrice !== "" && !Number.isNaN(price)) {
-      if (price > Number(c.maxPrice)) return false;
-    }
+    const price = toNum(p.price);
+    if (minPrice !== null && (price === null || price < minPrice)) return false;
+    if (maxPrice !== null && (price === null || price > maxPrice)) return false;
 
     // --- Bedrooms ---
-    const beds = Number(p.bedrooms);
-    if (c.minBeds !== "" && !Number.isNaN(beds)) {
-      if (beds < Number(c.minBeds)) return false;
-    }
-    if (c.maxBeds !== "" && !Number.isNaN(beds)) {
-      if (beds > Number(c.maxBeds)) return false;
+    const beds = toNum(p.bedrooms);
+    if (minBeds !== null && (beds === null || beds < minBeds)) return false;
+    if (maxBeds !== null && (beds === null || beds > maxBeds)) return false;
+
+    // --- Postcode/Area (your JSON uses `postcode`) ---
+    if (postcodeArea) {
+      const area = String(p.postcode || p.postcodeArea || "").toLowerCase();
+      if (!area.includes(postcodeArea)) return false;
     }
 
-    // --- Date (optional: only works if your JSON has a date field) ---
-    // Supports: dateAdded OR added OR date
-    const rawDate = p.dateAdded || p.added || p.date || "";
-    const propDate = rawDate ? new Date(rawDate) : null;
+    // --- Date filtering (your JSON uses `dateAdded`) ---
+    // (also supports older field names if your tests use them)
+    const propertyDateRaw = p.dateAdded ?? p.availableFrom ?? p.date ?? p.dateFrom;
 
-    if (c.dateFrom && propDate instanceof Date && !isNaN(propDate)) {
-      const from = new Date(c.dateFrom);
-      if (propDate < from) return false;
-    }
-    if (c.dateTo && propDate instanceof Date && !isNaN(propDate)) {
-      const to = new Date(c.dateTo);
-      // include the whole "dateTo" day
-      to.setHours(23, 59, 59, 999);
-      if (propDate > to) return false;
+    // strict: if filtering by date, property must have a valid date
+    if ((dateFrom || dateTo) && !hasDate(propertyDateRaw)) return false;
+
+    if (dateFrom || dateTo) {
+      const d = new Date(propertyDateRaw);
+      if (dateFrom && d < dateFrom) return false;
+      if (dateTo && d > dateTo) return false;
     }
 
     return true;

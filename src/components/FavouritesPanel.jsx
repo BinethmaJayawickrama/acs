@@ -49,6 +49,7 @@ export default function FavouritesPanel({
       {/* ADD ZONE */}
       <div
         className="favPanel__drop"
+        data-testid="fav-dropzone"
         onDragOver={handleDragOver}
         onDrop={handleDropAdd}
       >
