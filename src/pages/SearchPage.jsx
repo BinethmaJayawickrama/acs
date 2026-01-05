@@ -30,7 +30,13 @@ export default function SearchPage() {
     }
   }, [searchParams]);
 
-  const [favIds, setFavIds] = useState(loadFavourites());
+  const [favIds, setFavIds] = useState(() => {
+    const raw = loadFavourites();
+    return raw.map((id) => {
+      const n = Number(id);
+      return Number.isNaN(n) ? id : n;
+    });
+  });
 
   const results = useMemo(
     () => filterProperties(propertiesData, criteria),
@@ -38,18 +44,28 @@ export default function SearchPage() {
   );
 
   function addFavourite(id) {
+    const norm = (() => {
+      const n = Number(id);
+      return Number.isNaN(n) ? id : n;
+    })();
+
     setFavIds((prev) => {
-      if (prev.includes(id)) return prev;
-      const next = [...prev, id];
-      saveFavourites(next);
+      if (prev.includes(norm)) return prev;
+      const next = [...prev, norm];
+      saveFavourites(next.map(String));
       return next;
     });
   }
 
   function removeFavourite(id) {
+    const norm = (() => {
+      const n = Number(id);
+      return Number.isNaN(n) ? id : n;
+    })();
+
     setFavIds((prev) => {
-      const next = prev.filter((x) => x !== id);
-      saveFavourites(next);
+      const next = prev.filter((x) => x !== norm);
+      saveFavourites(next.map(String));
       return next;
     });
   }

@@ -6,6 +6,11 @@
 
 **5COSC026W – Advanced Client-Side Web Development**
 
+## 🔗 Links
+
+* **GitHub Repository**: [Add GitHub repo link here]
+* **Live Deployment**: [Add Vercel deployment link here]
+
 ## 🎓 Coursework Overview
 
 This project is a **React-based Single Page Application (SPA)** developed as part of the coursework for the *Advanced Client-Side Web Development* module.

@@ -118,7 +118,7 @@ export default function SearchForm({ criteria, onChange, onSearch }) {
 
         <div className="rmActions">
           <button type="submit" className="rmSearchBtn">
-            Search properties
+            Search
           </button>
         </div>
       </form>

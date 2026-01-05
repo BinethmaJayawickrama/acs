@@ -53,7 +53,7 @@ export default function FavouritesPanel({
         onDragOver={handleDragOver}
         onDrop={handleDropAdd}
       >
-        Drop here to add !
+        Drag a property card here to add
       </div>
 
       {favProps.length === 0 ? (
