@@ -2,7 +2,7 @@
   {
     "id": "p1",
     "type": "house",
-    "price": 450000,
+    "price": 4500000,
     "bedrooms": 4,
     "dateAdded": "2024-01-15",
     "postcode": "Colombo",
@@ -22,7 +22,7 @@
   {
     "id": "p2",
     "type": "flat",
-    "price": 320000,
+    "price": 3200000,
     "bedrooms": 2,
     "dateAdded": "2024-02-10",
     "postcode": "Kandy",
@@ -42,7 +42,7 @@
   {
     "id": "p3",
     "type": "house",
-    "price": 600000,
+    "price": 6000000,
     "bedrooms": 5,
     "dateAdded": "2024-03-01",
     "postcode": "Negombo",
@@ -61,7 +61,7 @@
   {
     "id": "p4",
     "type": "flat",
-    "price": 280000,
+    "price": 2800000,
     "bedrooms": 1,
     "dateAdded": "2024-03-20",
     "postcode": "Kalutara",
@@ -80,7 +80,7 @@
   {
     "id": "p5",
     "type": "house",
-    "price": 520000,
+    "price": 5200000,
     "bedrooms": 3,
     "dateAdded": "2024-04-05",
     "postcode": "Kurunegala",
@@ -98,7 +98,7 @@
   {
     "id": "p6",
     "type": "flat",
-    "price": 390000,
+    "price": 3900000,
     "bedrooms": 2,
     "dateAdded": "2024-04-18",
     "postcode": "Colombo 04",
@@ -117,7 +117,7 @@
   {
     "id": "p7",
     "type": "house",
-    "price": 750000,
+    "price": 7500000,
     "bedrooms": 6,
     "dateAdded": "2024-05-01",
     "postcode": "Matara",

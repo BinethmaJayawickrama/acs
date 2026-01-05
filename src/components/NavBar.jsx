@@ -27,7 +27,7 @@ function HeartOutlineIcon() {
 export default function NavBar() {
   const navigate = useNavigate();
 
-  const [searchText, setSearchText] = useState(""); // ✅ NEW
+  const [searchText, setSearchText] = useState("");
   const [openFav, setOpenFav] = useState(false);
   const [favIds, setFavIds] = useState(() => loadFavourites());
 
@@ -65,10 +65,9 @@ export default function NavBar() {
             doSearch();
           }}
         >
-          <span className="sitebar__searchIcon">🔍</span>
           <input
             className="sitebar__input"
-            placeholder="City (e.g., Colombo)"
+            placeholder=" 🔍 City (e.g., Colombo)"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
@@ -117,7 +116,7 @@ export default function NavBar() {
                         typeof p.price === "number"
                           ? p.price.toLocaleString("en-GB", {
                               style: "currency",
-                              currency: "GBP",
+                              currency: "LKR",
                             })
                           : p.price || "Price N/A";
 

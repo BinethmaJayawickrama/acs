@@ -74,17 +74,17 @@ img{
 
 /* ===== Results + Favourites side-by-side ===== */
 .resultsSection{
-  padding: 10px 12px 30px;
+  padding: 10px 16px 30px;
   display: flex;
   justify-content: flex-start;
 }
 
 .resultsGridLayout{
   width: 100%;
-  max-width: 1250px;
-  margin: 0;
+  max-width: 1440px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 420px;
   grid-template-rows: auto 1fr;
   column-gap: 28px;
   row-gap: 14px;
@@ -429,3 +429,5 @@ button{
 .favMini__remove:hover{
   filter: brightness(0.98);
 }
+
+

@@ -1,66 +1,120 @@
+/* =========================
+   ContactUs.css (Elegant + hover)
+   Palette: Forest Green / Beige / Charcoal
+   ========================= */
+
 .contactSimple{
-  max-width: 1100px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 28px 18px 60px;
+  padding: 44px 18px 70px;
 }
 
 /* Title */
 .contactSimple__title{
   text-align: center;
-  margin: 0 0 18px;
-  font-size: 54px;
-  font-weight: 800;
-  color: var(--primary);        /* green */
-  letter-spacing: -0.02em;
-  padding-bottom: 50px;
+  margin: 0 0 28px;
+  font-size: clamp(34px, 4vw, 56px);
+  font-weight: 900;
+  color: var(--primary);
+  letter-spacing: -0.03em;
 }
 
-/* Top 3 cards */
+/* Subtitle feeling (optional if you have a paragraph) */
+.contactSimple__subtitle{
+  text-align: center;
+  margin: -14px auto 34px;
+  max-width: 70ch;
+  color: var(--muted);
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+/* Top cards grid */
 .contactSimple__whyGrid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin: 0 auto 22px;
+  gap: 22px;
+  margin: 0 auto 28px;
 }
 
+/* Elegant card */
 .whyCard{
-  background: var(--panel);     /* white panel */
-  border: 2px solid var(--primary);
-  border-radius: 18px;
-  padding: 18px;
-  min-height: 110px;
-  box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(51,51,51,0.18);
+  border-radius: 22px;
+  padding: 22px 20px 18px;
+  min-height: 140px;
+
+  box-shadow: 0 12px 26px rgba(0,0,0,0.08);
+  overflow: hidden;
+
+  transition: transform 180ms ease,
+              box-shadow 180ms ease,
+              border-color 180ms ease,
+              background 180ms ease;
 }
 
+.whyCard:hover{
+  transform: translateY(-6px);
+  background: rgba(45, 90, 39, 0.06);
+  border-color: rgba(45, 90, 39, 0.45);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.12);
+}
+
+/* (NO green glow / no spots) */
+.whyCard::before{
+  content: none;
+}
+
+/* title + text */
 .whyCard h3{
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 900;
-  color: var(--accent);         /* charcoal */
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 950;
+  color: var(--accent);
+  letter-spacing: -0.01em;
 }
 
 .whyCard p{
   margin: 0;
-  color: var(--muted);
+  font-size: 15px;
+  color: rgba(51,51,51,0.82);
   font-weight: 650;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
-/* Bottom info box */
+/* Bottom info box (contact details) */
 .contactSimple__infoBox{
   background: var(--panel);
-  border: 2px solid var(--primary);
+  border: 1px solid var(--line);
   border-radius: 22px;
   padding: 22px;
-  box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+
+  box-shadow: 0 16px 36px rgba(0,0,0,0.07);
+  transition: transform 180ms ease,
+              box-shadow 180ms ease,
+              border-color 180ms ease,
+              background 180ms ease;
 }
 
+/* ✅ SAME hover effect as cards (subtle + elegant) */
+.contactSimple__infoBox:hover{
+  transform: translateY(-6px);
+  background: rgba(45, 90, 39, 0.04);
+  border-color: rgba(45, 90, 39, 0.35);
+  box-shadow: 0 20px 46px rgba(0,0,0,0.12);
+}
+
+/* rows */
 .infoRow{
   display: grid;
-  grid-template-columns: 120px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 12px;
-  padding: 10px 0;
-  border-top: 1px solid rgba(51, 51, 51, 0.14);
+  padding: 14px 0;
+  border-top: 1px solid rgba(51,51,51,0.12);
+
+  transition: background 160ms ease, transform 160ms ease;
 }
 
 .infoRow:first-child{
@@ -73,62 +127,66 @@
 }
 
 .infoValue{
-  color: var(--muted);
-  font-weight: 700;
+  color: rgba(51,51,51,0.78);
+  font-weight: 750;
+  line-height: 1.45;
 }
 
 .infoLink{
-  color: var(--accent);
+  color: var(--primary);
   font-weight: 900;
   text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 150ms ease, color 150ms ease;
 }
 
 .infoLink:hover{
-  color: var(--primary);
-  text-decoration: underline;
-  text-decoration-color: var(--primary);
+  color: #21451d;
+  border-bottom-color: rgba(45,90,39,0.55);
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .contactSimple__title {
-    font-size: 42px;
-    padding-bottom: 20px;
+/* Small hover for info rows (feels premium) */
+.infoRow:hover{
+  background: rgba(45,90,39,0.04);
+  border-radius: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 1024px){
+  .contactSimple{
+    padding: 34px 16px 60px;
   }
 
-  .contactSimple__whyGrid {
+  .contactSimple__whyGrid{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .infoRow{
+    grid-template-columns: 140px 1fr;
+  }
 }
 
-@media (max-width: 600px) {
-  .contactSimple {
-    padding: 18px 14px 50px;
-  }
-
-  .contactSimple__title {
-    font-size: 34px;
-    padding-bottom: 20px;
-  }
-
-  .contactSimple__whyGrid {
+@media (max-width: 600px){
+  .contactSimple__whyGrid{
     grid-template-columns: 1fr;
   }
 
-  .contactSimple__infoBox {
+  .contactSimple__infoBox{
     padding: 16px;
-  }
-
-  .whyCard {
-    padding: 14px;
   }
 
   .infoRow{
     grid-template-columns: 1fr;
+    gap: 6px;
   }
 
-  .infoLink{
-    font-size: 14px;
-    word-break: break-word;
+  .infoLabel{
+    opacity: 0.9;
   }
 }

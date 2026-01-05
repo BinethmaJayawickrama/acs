@@ -38,7 +38,7 @@ export default function PropertyDetails() {
 
   const priceText =
     typeof property.price === "number"
-      ? property.price.toLocaleString("en-GB", { style: "currency", currency: "GBP" })
+      ? property.price.toLocaleString("en-GB", { style: "currency", currency: "LKR" })
       : property.price || "Price not available";
 
   const metaType = (property.type || "Property").toUpperCase();
@@ -133,7 +133,7 @@ export default function PropertyDetails() {
                     {property.longDescription || property.shortDescription || "No description available."}
                 </p>
                 </>
-)}
+            )}
 
 
               {tab === "floorplan" && (
